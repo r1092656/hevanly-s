@@ -1,0 +1,245 @@
+/* Home page styles */
+
+.home-page {
+  padding-top: 0; 
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 90vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--color-primary); /* fallback */
+  z-index: 1;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(42, 42, 42, 0.4), rgba(42, 42, 42, 0.6));
+  z-index: 2;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  color: white;
+  max-width: 800px;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+  display: block;
+  color: var(--color-border);
+}
+
+.hero-title {
+  color: white;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.hero-text {
+  font-size: 1.15rem;
+  color: #f1f1f1;
+  margin-bottom: 2.5rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.footer-btn.btn-outline {
+  border-color: white;
+  color: white;
+}
+.footer-btn.btn-outline:hover {
+  background-color: white;
+  color: var(--color-text);
+}
+
+/* Intro Section */
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  align-items: center;
+}
+
+.intro-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+.stat-card {
+  background-color: var(--color-surface);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+  border: 1px solid var(--color-border);
+}
+
+.stat-card h3 {
+  color: var(--color-accent);
+  margin-bottom: 5px;
+  font-size: 2.5rem;
+}
+
+.link-arrow {
+  color: var(--color-accent);
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+}
+
+.link-arrow:after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-accent);
+  transition: width 0.3s ease;
+}
+
+.link-arrow:hover:after {
+  width: 100%;
+}
+
+/* Services */
+.text-center {
+  text-align: center;
+}
+.section-header {
+  margin-bottom: var(--spacing-xl);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.service-card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border);
+}
+
+.service-card-image-wrapper {
+  overflow: hidden;
+  height: 250px;
+}
+
+.service-image {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-border);
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-image {
+  transform: scale(1.05);
+}
+
+.service-card-content {
+  padding: var(--spacing-lg);
+}
+
+/* Testimonials */
+.testimonials {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+.testimonials-header h2 {
+  color: white;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.testimonial-card {
+  background-color: rgba(255,255,255,0.1);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(5px);
+}
+
+.testimonial-text {
+  color: white;
+  font-size: 1.1rem;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.icon-accent {
+  color: var(--color-bg);
+  margin-bottom: 10px;
+}
+
+/* CTA Section */
+.cta-container {
+  background-color: #F6F3F0;
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+@media (max-width: 768px) {
+  .intro-grid, .services-grid, .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-actions {
+    flex-direction: column;
+  }
+}

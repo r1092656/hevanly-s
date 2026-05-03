@@ -1,0 +1,138 @@
+.admin-form-container {
+  padding: 3rem 0;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.admin-form.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 3rem;
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+.input-field {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(108, 91, 122, 0.1);
+}
+
+textarea.input-field {
+  resize: vertical;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.status-display {
+  display: flex;
+  align-items: center;
+  height: 52px; /* Match input height */
+}
+
+.image-upload-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.image-preview-container {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f8f9fa;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.image-preview-container:hover {
+  border-color: var(--color-accent);
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-placeholder {
+  text-align: center;
+  color: var(--color-text-light);
+  padding: 2rem;
+}
+
+.image-placeholder p {
+  font-size: 0.8rem;
+  margin-top: 1rem;
+}
+
+.image-input-manual {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.btn-sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 991px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-right {
+    order: -1;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,104 @@
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-2xl);
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 0.5rem 1.5rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background-color: transparent;
+  color: var(--color-text);
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: var(--transition);
+}
+
+.tab-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.tab-btn.active {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: white;
+}
+
+.services-list-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xl);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.service-menu-item {
+  background-color: var(--color-surface);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  transition: var(--transition);
+}
+
+.service-menu-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-secondary);
+}
+
+.service-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.service-top h3 {
+  font-size: 1.4rem;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.service-line {
+  flex-grow: 1;
+  border-bottom: 1px dashed var(--color-border);
+  margin: 0 15px;
+  position: relative;
+  top: -6px;
+}
+
+.service-price {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.service-desc {
+  font-size: 0.95rem;
+  color: var(--color-text-light);
+  margin-bottom: 1rem;
+}
+
+.book-link-btn {
+  color: var(--color-accent);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.book-link-btn:hover {
+  color: var(--color-secondary);
+}
+
+@media (max-width: 768px) {
+  .services-list-grid {
+    grid-template-columns: 1fr;
+  }
+}
