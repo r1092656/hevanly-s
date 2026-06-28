@@ -79,7 +79,7 @@ const INITIAL_PRODUCTS = [
     price: 45.00,
     stock: 10,
     image: bathrobeImg,
-    description: 'Ultra-soft, sustainable bamboo fabric for a spa-like experience at home.'
+    description: 'Ultra-zacht, duurzaam bamboe badstof voor een luxueuze ervaring thuis.'
   },
   {
     id: 9,

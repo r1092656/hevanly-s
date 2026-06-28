@@ -86,6 +86,53 @@
   box-shadow: var(--shadow-sm);
 }
 
+.map-blocked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  height: 220px;
+  background: var(--color-surface, #f9f9f9);
+  border-radius: var(--radius-lg);
+  color: var(--text-secondary, #777);
+  text-align: center;
+  padding: 2rem;
+}
+
+.map-blocked p {
+  max-width: 420px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.gdpr-consent {
+  margin: 1rem 0;
+}
+
+.gdpr-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  color: var(--text-secondary, #555);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.gdpr-label input[type="checkbox"] {
+  margin-top: 3px;
+  flex-shrink: 0;
+  accent-color: var(--accent, #c9a96e);
+  width: 16px;
+  height: 16px;
+}
+
+.gdpr-link {
+  color: var(--accent, #c9a96e);
+  text-decoration: underline;
+}
+
 @media (max-width: 900px) {
   .contact-layout {
     grid-template-columns: 1fr;

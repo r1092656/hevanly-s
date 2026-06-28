@@ -1,12 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Contact.css';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail } from 'lucide-react';
 
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [gdprChecked, setGdprChecked] = useState(false);
+  const [cookieConsent, setCookieConsent] = useState(false);
+
+  useEffect(() => {
+    const consent = localStorage.getItem('cookie_consent');
+    setCookieConsent(consent === 'accepted');
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!gdprChecked) return;
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 5000);
   };
@@ -47,7 +56,31 @@ const Contact = () => {
                     <label className="input-label" htmlFor="message">Bericht</label>
                     <textarea id="message" className="input-field" rows="5" required placeholder="Hoe kunnen we u helpen?"></textarea>
                   </div>
-                  <button type="submit" className="btn btn-primary w-100" style={{ width: '100%' }}>Bericht versturen</button>
+
+                  <div className="gdpr-consent">
+                    <label className="gdpr-label">
+                      <input
+                        type="checkbox"
+                        checked={gdprChecked}
+                        onChange={(e) => setGdprChecked(e.target.checked)}
+                        required
+                      />
+                      <span>
+                        Ik ga akkoord met de{' '}
+                        <Link to="/privacy" className="gdpr-link">privacyverklaring</Link>
+                        {' '}en geef toestemming voor de verwerking van mijn gegevens om dit bericht te beantwoorden.
+                      </span>
+                    </label>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    style={{ width: '100%' }}
+                    disabled={!gdprChecked}
+                  >
+                    Bericht versturen
+                  </button>
                 </form>
               )}
             </div>
@@ -67,7 +100,7 @@ const Contact = () => {
                     <Phone className="info-icon" />
                     <div>
                       <strong>Telefoon</strong>
-                      <p>+32 465 17 27 90 </p>
+                      <p>+32 465 17 27 90</p>
                     </div>
                   </li>
                   <li>
@@ -96,17 +129,36 @@ const Contact = () => {
 
           </div>
 
-          {/* Map */}
+          {/* Map – alleen laden na cookietoestemming */}
           <div className="map-container">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2499.7820125807185!2d4.953531076625895!3d51.3146401255562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c14e1a0b5b1585%3A0xc3f58a3eeaa6de27!2sGraatakker%20118%2C%202300%20Turnhout%2C%20Belgium!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
-              width="100%"
-              height="400"
-              style={{ border: 0, borderRadius: 'var(--radius-lg)' }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade">
-            </iframe>
+            {cookieConsent ? (
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2499.7820125807185!2d4.953531076625895!3d51.3146401255562!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c14e1a0b5b1585%3A0xc3f58a3eeaa6de27!2sGraatakker%20118%2C%202300%20Turnhout%2C%20Belgium!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                width="100%"
+                height="400"
+                style={{ border: 0, borderRadius: 'var(--radius-lg)' }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Locatie Hevanly's Beautybar"
+              />
+            ) : (
+              <div className="map-blocked">
+                <MapPin size={32} />
+                <p>
+                  Google Maps is uitgeschakeld omdat u nog geen cookietoestemming heeft gegeven.
+                  Accepteer cookies via de banner onderaan om de kaart te zien.
+                </p>
+                <a
+                  href="https://maps.google.com/?q=Graatakker+118,+2300+Turnhout"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-outline"
+                >
+                  Bekijk op Google Maps
+                </a>
+              </div>
+            )}
           </div>
 
         </div>

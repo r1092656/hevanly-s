@@ -22,6 +22,9 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminProducts from './pages/AdminProducts';
 import AdminAddProduct from './pages/AdminAddProduct';
 import AdminNews from './pages/AdminNews';
+import Privacy from './pages/Privacy';
+import AlgemeneVoorwaarden from './pages/AlgemeneVoorwaarden';
+import CookieBanner from './components/CookieBanner';
 
 function App() {
   return (
@@ -41,7 +44,9 @@ function App() {
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/reviews" element={<Reviews />} />
                     <Route path="/contact" element={<Contact />} />
-                    
+                    <Route path="/privacy" element={<Privacy />} />
+                    <Route path="/algemene-voorwaarden" element={<AlgemeneVoorwaarden />} />
+
                     {/* Admin Routes */}
                     <Route path="/admin/login" element={<AdminLogin />} />
                     <Route path="/admin" element={
@@ -65,6 +70,7 @@ function App() {
               </div>
               <BookingModal />
               <CartDrawer />
+              <CookieBanner />
             </BookingProvider>
           </ShopProvider>
         </NewsProvider>

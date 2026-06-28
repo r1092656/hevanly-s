@@ -15,7 +15,7 @@ const Home = () => {
         <div className="hero-background" style={{backgroundImage: "url('/hero.png')"}}></div>
         <div className="hero-overlay"></div>
         <div className="container hero-content">
-          <span className="hero-subtitle">Premium Schoonheid & Spa</span>
+          <span className="hero-subtitle">Premium Beauty Bar</span>
           <h1 className="hero-title">Ontdek je ware elegantie</h1>
           <p className="hero-text">
             Ervaar luxe behandelingen die zijn afgestemd om je natuurlijke schoonheid te accentueren in een serene, professionele sfeer.
@@ -102,7 +102,7 @@ const Home = () => {
               </div>
               <div className="service-card-content">
                 <h3>Facial Treatments</h3>
-                <p>Verjongende spabehandelingen met de beste producten voor een stralende huid.</p>
+                <p>Verjongende behandelingen met de beste producten voor een stralende huid.</p>
                 <Link to="/services" className="link-arrow">Bekijk details &rarr;</Link>
               </div>
             </div>

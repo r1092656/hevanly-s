@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useBooking } from '../context/BookingContext';
 import { X, CheckCircle, ChevronRight, ChevronLeft } from 'lucide-react';
 import './BookingModal.css';
@@ -7,7 +8,7 @@ const services = [
   { id: '1', name: 'Luxury Nails (Gel)', price: '€65', time: '60 min' },
   { id: '2', name: 'Classic Manicure', price: '€35', time: '30 min' },
   { id: '3', name: 'Lash Extensions', price: '€80', time: '90 min' },
-  { id: '4', name: 'Glow Facial Spa', price: '€85', time: '60 min' }
+  { id: '4', name: 'Glow Facial', price: '€85', time: '60 min' }
 ];
 
 const availableTimes = ['10:00', '11:30', '13:00', '14:30', '16:00'];
@@ -21,6 +22,7 @@ const BookingModal = () => {
   const [personalDetails, setPersonalDetails] = useState({ name: '', email: '', phone: '' });
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [depositInfo, setDepositInfo] = useState({ total: 0, deposit: 0, balance: 0 });
+  const [gdprChecked, setGdprChecked] = useState(false);
 
   useEffect(() => {
     if (isBookingOpen) {
@@ -213,8 +215,26 @@ const BookingModal = () => {
                 </div>
                 <div className="input-group">
                   <label className="input-label">Telefoonnummer</label>
-                  <input type="tel" className="input-field" required 
+                  <input type="tel" className="input-field" required
                     value={personalDetails.phone} onChange={e => setPersonalDetails({...personalDetails, phone: e.target.value})} />
+                </div>
+
+                <div className="gdpr-consent">
+                  <label className="gdpr-label">
+                    <input
+                      type="checkbox"
+                      checked={gdprChecked}
+                      onChange={(e) => setGdprChecked(e.target.checked)}
+                      required
+                    />
+                    <span>
+                      Ik ga akkoord met de{' '}
+                      <Link to="/privacy" className="gdpr-link" onClick={() => {}}>privacyverklaring</Link>
+                      {' '}en{' '}
+                      <Link to="/algemene-voorwaarden" className="gdpr-link">algemene voorwaarden</Link>
+                      {' '}en geef toestemming voor de verwerking van mijn gegevens voor deze boeking.
+                    </span>
+                  </label>
                 </div>
               </form>
 
@@ -222,7 +242,7 @@ const BookingModal = () => {
                 <button className="btn btn-outline" onClick={prevStep}>
                   <ChevronLeft size={18} /> Terug
                 </button>
-                <button type="submit" form="bookingForm" className="btn btn-primary">
+                <button type="submit" form="bookingForm" className="btn btn-primary" disabled={!gdprChecked}>
                   Overzicht & Aanbetaling
                 </button>
               </div>

@@ -15,6 +15,7 @@ const Checkout = () => {
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [gdprChecked, setGdprChecked] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -146,10 +147,28 @@ const Checkout = () => {
               </div>
             </section>
 
-            <button 
-              type="submit" 
+            <div className="gdpr-consent">
+              <label className="gdpr-label">
+                <input
+                  type="checkbox"
+                  checked={gdprChecked}
+                  onChange={(e) => setGdprChecked(e.target.checked)}
+                  required
+                />
+                <span>
+                  Ik ga akkoord met de{' '}
+                  <Link to="/privacy" className="gdpr-link">privacyverklaring</Link>
+                  {' '}en de{' '}
+                  <Link to="/algemene-voorwaarden" className="gdpr-link">algemene voorwaarden</Link>
+                  {' '}en geef toestemming voor de verwerking van mijn gegevens voor deze bestelling.
+                </span>
+              </label>
+            </div>
+
+            <button
+              type="submit"
               className={`btn btn-primary pay-btn ${isProcessing ? 'loading' : ''}`}
-              disabled={isProcessing}
+              disabled={isProcessing || !gdprChecked}
             >
               {isProcessing ? 'Betaling verwerken...' : `€${cartTotal.toFixed(2)} betalen via Payconiq`}
             </button>

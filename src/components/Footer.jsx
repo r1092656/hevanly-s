@@ -26,6 +26,14 @@ const Footer = () => {
           </ul>
         </div>
 
+        <div className="footer-legal">
+          <h3>Juridisch</h3>
+          <ul>
+            <li><Link to="/privacy">Privacyverklaring</Link></li>
+            <li><Link to="/algemene-voorwaarden">Algemene Voorwaarden</Link></li>
+          </ul>
+        </div>
+
         <div className="footer-contact">
           <h3>Bezoek ons</h3>
           <ul>
@@ -47,7 +55,13 @@ const Footer = () => {
       <div className="footer-bottom">
         <div className="container footer-bottom-container">
           <p>&copy; {new Date().getFullYear()} Hevanly's Beautybar. Alle rechten voorbehouden.</p>
-          <Link to="/admin" className="admin-link-subtle">Admin</Link>
+          <div className="footer-bottom-links">
+            <Link to="/privacy" className="footer-bottom-link">Privacy</Link>
+            <span className="footer-divider">·</span>
+            <Link to="/algemene-voorwaarden" className="footer-bottom-link">Voorwaarden</Link>
+            <span className="footer-divider">·</span>
+            <Link to="/admin" className="admin-link-subtle">Admin</Link>
+          </div>
         </div>
       </div>
     </footer>
