@@ -4,12 +4,50 @@ import { useBooking } from '../context/BookingContext';
 import { X, CheckCircle, ChevronRight, ChevronLeft } from 'lucide-react';
 import './BookingModal.css';
 
-const services = [
-  { id: '1', name: 'Luxury Nails (Gel)', price: '€65', time: '60 min' },
-  { id: '2', name: 'Classic Manicure', price: '€35', time: '30 min' },
-  { id: '3', name: 'Lash Extensions', price: '€80', time: '90 min' },
-  { id: '4', name: 'Glow Facial', price: '€85', time: '60 min' }
+const ALL_SERVICES = [
+  { id: 1,  name: 'Detox Treatment',                        category: 'Natuurlijk Haar',        price: '€90',       time: '120 min' },
+  { id: 2,  name: 'Vitamin Treatment',                      category: 'Natuurlijk Haar',        price: '€80',       time: '90 min – Incl. stoom' },
+  { id: 3,  name: 'Protein Treatment',                      category: 'Natuurlijk Haar',        price: '€80',       time: '90 min – Incl. stoom' },
+  { id: 4,  name: 'Oil Treatment',                          category: 'Natuurlijk Haar',        price: '€75',       time: '90 min – Incl. stoom' },
+  { id: 5,  name: 'Keratin Treatment',                      category: 'Natuurlijk Haar',        price: '€150',      time: '180 min – Incl. styling' },
+  { id: 6,  name: 'Trim Ends',                              category: 'Hairstyling',            price: '€25',       time: '30 min – Excl. wassen' },
+  { id: 7,  name: 'Model Haircut',                          category: 'Hairstyling',            price: '€35',       time: '45 min – Excl. wassen' },
+  { id: 8,  name: 'Wash, Cut & Blow Dry',                   category: 'Hairstyling',            price: '€55',       time: '90 min' },
+  { id: 9,  name: 'Wash, Blow Dry & Curling',               category: 'Hairstyling',            price: '€65',       time: '90 min' },
+  { id: 10, name: 'Relax, Cut & Styling (kort haar)',        category: 'Hairstyling',            price: '€90',       time: '120 min' },
+  { id: 11, name: 'Relax, Cut & Styling (lang haar)',        category: 'Hairstyling',            price: '€110',      time: '180 min' },
+  { id: 12, name: 'Wash & Blow Dry',                        category: 'Hairstyling',            price: '€25',       time: '60 min' },
+  { id: 13, name: 'Root Touch-Up (< 10 weken)',              category: 'Haarkleuring',           price: '€55',       time: '180 min' },
+  { id: 14, name: 'Root Touch-Up',                          category: 'Haarkleuring',           price: '€70',       time: '180 min' },
+  { id: 15, name: 'Highlights',                             category: 'Haarkleuring',           price: '€150',      time: '180 min – Incl. toner, knippen & föhnen' },
+  { id: 16, name: 'Balayage',                               category: 'Haarkleuring',           price: '€130',      time: '180 min – Incl. toner, knippen & föhnen' },
+  { id: 17, name: 'Flip Over Weave',                        category: 'Weave & Pruik',          price: '€95',       time: '180 min' },
+  { id: 18, name: 'Weave with Closure',                     category: 'Weave & Pruik',          price: '€110',      time: '180 min' },
+  { id: 19, name: 'Leave-Out Weave',                        category: 'Weave & Pruik',          price: '€110',      time: '180 min' },
+  { id: 20, name: 'Track Refill per Row',                   category: 'Weave & Pruik',          price: '€25',       time: '180 min – Excl. styling' },
+  { id: 21, name: 'Weave Removal & Wash',                   category: 'Weave & Pruik',          price: '€30',       time: '60 min' },
+  { id: 22, name: 'Wig Installation',                       category: 'Weave & Pruik',          price: '€75',       time: '60 min – Excl. styling' },
+  { id: 23, name: 'Half-Up Half-Down Ponytail',             category: 'Weave & Pruik',          price: '€95',       time: '120 min' },
+  { id: 24, name: 'Ponytail Hairstyles',                    category: 'Weave & Pruik',          price: '€60',       time: '90 min' },
+  { id: 25, name: 'Braids with Extensions (medium)',        category: 'Vlechten',               price: '€110',      time: '210 min' },
+  { id: 26, name: 'Braids with Extensions (lang)',          category: 'Vlechten',               price: '€130',      time: '240 min' },
+  { id: 27, name: 'Natural Hair Braiding',                  category: 'Vlechten',               price: '€65',       time: '90 min' },
+  { id: 28, name: 'Cornrows with Extensions',               category: 'Vlechten',               price: 'vanaf €75', time: '120 min' },
+  { id: 29, name: 'Cornrows on Natural Hair',               category: 'Vlechten',               price: '€45',       time: '60 min' },
+  { id: 30, name: 'Crochet Braids',                         category: 'Vlechten',               price: '€75',       time: '150 min' },
+  { id: 31, name: 'Dreadlock Maintenance (< 3 mnd)',        category: 'Dreadlocks',             price: '€85',       time: '90 min' },
+  { id: 32, name: 'Dreadlock Maintenance (> 3 mnd)',        category: 'Dreadlocks',             price: '€110',      time: '120 min' },
+  { id: 33, name: 'Dreadlock Deep Cleansing',               category: 'Dreadlocks',             price: '€75',       time: '120 min' },
+  { id: 34, name: 'Full Head Dreadlocks from Scratch',      category: 'Dreadlocks',             price: 'vanaf €200',time: '240 min' },
+  { id: 35, name: 'Dreadlocks with Extensions',             category: 'Dreadlocks',             price: 'vanaf €280',time: '240 min – Excl. extensions' },
+  { id: 36, name: 'Eyebrow Shaping',                        category: 'Wenkbrauwen & Wimpers',  price: '€15',       time: '30 min' },
+  { id: 37, name: 'Eyebrow Shaping with Tint',              category: 'Wenkbrauwen & Wimpers',  price: '€40',       time: '60 min' },
+  { id: 38, name: 'Cluster Lashes',                         category: 'Wenkbrauwen & Wimpers',  price: '€35',       time: '30 min' },
+  { id: 39, name: 'Manicure without Polish',                category: 'Manicure',               price: '€25',       time: '60 min' },
+  { id: 40, name: 'Manicure with Gel Polish',               category: 'Manicure',               price: '€45',       time: '75 min' },
 ];
+
+const CATEGORIES = ['Alle', 'Natuurlijk Haar', 'Hairstyling', 'Haarkleuring', 'Weave & Pruik', 'Vlechten', 'Dreadlocks', 'Wenkbrauwen & Wimpers', 'Manicure'];
 
 const availableTimes = ['10:00', '11:30', '13:00', '14:30', '16:00'];
 
@@ -23,6 +61,7 @@ const BookingModal = () => {
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [depositInfo, setDepositInfo] = useState({ total: 0, deposit: 0, balance: 0 });
   const [gdprChecked, setGdprChecked] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('Alle');
 
   useEffect(() => {
     if (isBookingOpen) {
@@ -97,6 +136,8 @@ const BookingModal = () => {
     setSelectedTime('');
     setPersonalDetails({ name: '', email: '', phone: '' });
     setPaymentLoading(false);
+    setGdprChecked(false);
+    setSelectedCategory('Alle');
     closeBooking();
   };
 
@@ -124,24 +165,40 @@ const BookingModal = () => {
           {step === 1 && (
             <div className="step-content">
               <h3>Kies een behandeling</h3>
-              <div className="service-selection">
-                {services.map(s => (
-                  <div 
-                    key={s.id} 
-                    className={`service-option ${selectedService?.id === s.id ? 'selected' : ''}`}
-                    onClick={() => setSelectedService(s)}
+
+              <div className="booking-category-tabs">
+                {CATEGORIES.map(cat => (
+                  <button
+                    key={cat}
+                    className={`booking-cat-btn ${selectedCategory === cat ? 'active' : ''}`}
+                    onClick={() => { setSelectedCategory(cat); setSelectedService(null); }}
                   >
-                    <div>
-                      <h4>{s.name}</h4>
-                      <p>{s.time}</p>
-                    </div>
-                    <span>{s.price}</span>
-                  </div>
+                    {cat}
+                  </button>
                 ))}
               </div>
+
+              <div className="service-selection">
+                {ALL_SERVICES
+                  .filter(s => selectedCategory === 'Alle' || s.category === selectedCategory)
+                  .map(s => (
+                    <div
+                      key={s.id}
+                      className={`service-option ${selectedService?.id === s.id ? 'selected' : ''}`}
+                      onClick={() => setSelectedService(s)}
+                    >
+                      <div>
+                        <h4>{s.name}</h4>
+                        <p>{s.time}</p>
+                      </div>
+                      <span>{s.price}</span>
+                    </div>
+                  ))}
+              </div>
+
               <div className="step-actions right">
-                <button 
-                  className="btn btn-primary" 
+                <button
+                  className="btn btn-primary"
                   disabled={!selectedService}
                   onClick={nextStep}
                 >

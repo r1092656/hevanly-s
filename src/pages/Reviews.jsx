@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Star } from 'lucide-react';
 import './Reviews.css';
 
@@ -20,6 +21,7 @@ const Reviews = () => {
   const [name, setName] = useState('');
   const [content, setContent] = useState('');
   const [isAnonymous, setIsAnonymous] = useState(false);
+  const [gdprChecked, setGdprChecked] = useState(false);
   const [error, setError] = useState('');
 
   // Load reviews on mount
@@ -75,6 +77,7 @@ const Reviews = () => {
     setName('');
     setContent('');
     setIsAnonymous(false);
+    setGdprChecked(false);
     alert('Bedankt voor uw mooie beoordeling!');
   };
 
@@ -150,7 +153,25 @@ const Reviews = () => {
                 ></textarea>
               </div>
 
-              <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>Beoordeling indienen</button>
+              <div className="gdpr-consent">
+                <label className="gdpr-label">
+                  <input
+                    type="checkbox"
+                    checked={gdprChecked}
+                    onChange={(e) => setGdprChecked(e.target.checked)}
+                    required
+                  />
+                  <span>
+                    Ik ga akkoord met de{' '}
+                    <Link to="/privacy" className="gdpr-link">privacyverklaring</Link>
+                    {' '}en geef toestemming voor het publiceren van mijn beoordeling op deze website.
+                  </span>
+                </label>
+              </div>
+
+              <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={!gdprChecked}>
+                Beoordeling indienen
+              </button>
             </form>
           </div>
 

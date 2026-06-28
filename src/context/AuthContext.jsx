@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   });
 
   const login = (password) => {
-    if (password === 'lakisha2026') {
+    if (password === import.meta.env.VITE_ADMIN_PASSWORD) {
       setIsAdmin(true);
       localStorage.setItem('isAdmin', 'true');
       return true;

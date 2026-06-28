@@ -24,6 +24,7 @@ import AdminAddProduct from './pages/AdminAddProduct';
 import AdminNews from './pages/AdminNews';
 import Privacy from './pages/Privacy';
 import AlgemeneVoorwaarden from './pages/AlgemeneVoorwaarden';
+import NotFound from './pages/NotFound';
 import CookieBanner from './components/CookieBanner';
 
 function App() {
@@ -64,6 +65,9 @@ function App() {
                     <Route path="/admin/news" element={
                       <AdminRoute><AdminNews /></AdminRoute>
                     } />
+
+                    {/* 404 */}
+                    <Route path="*" element={<NotFound />} />
                   </Routes>
                 </main>
                 <Footer />

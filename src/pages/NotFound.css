@@ -1,0 +1,32 @@
+.notfound-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.notfound-content {
+  max-width: 480px;
+}
+
+.notfound-code {
+  font-size: 6rem;
+  font-weight: 800;
+  color: var(--color-accent, #c9a96e);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.notfound-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--color-text, #1a1a1a);
+}
+
+.notfound-content p {
+  color: var(--text-secondary, #666);
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}

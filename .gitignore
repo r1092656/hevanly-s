@@ -1,3 +1,8 @@
+# Environment variables – NOOIT uploaden naar GitHub
+.env
+.env.*
+!.env.example
+
 # Logs
 logs
 *.log
