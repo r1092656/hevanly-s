@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles, Calendar } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { useBooking } from '../context/BookingContext';
 import NewsSection from '../components/NewsSection';
 import './Home.css';
@@ -21,10 +21,9 @@ const Home = () => {
             Ervaar luxe behandelingen die zijn afgestemd om je natuurlijke schoonheid te accentueren in een serene, professionele sfeer.
           </p>
           <div className="hero-actions">
-            <button className="btn btn-primary flex items-center justify-center gap-2" onClick={openBooking}>
-              <Calendar size={20} />
-              Afspraak maken
-            </button>
+            <Link to="/products" className="btn btn-primary">
+              Bekijk producten
+            </Link>
             <Link to="/services" className="btn btn-outline footer-btn">
               Bekijk behandelingen
             </Link>
@@ -62,51 +61,42 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Services Preview */}
-      <section className="section services-preview">
+      {/* Samenwerking Nagels */}
+      <section className="section collab-section">
         <div className="container">
           <div className="section-header text-center">
-            <h2>Onze kenmerkende diensten</h2>
-            <p>Verhoog je schoonheid met onze gespecialiseerde behandelingen</p>
+            <h2>Onze samenwerking</h2>
+            <p>Voor nagels werken wij samen met een gespecialiseerde nagelstyliste</p>
           </div>
-          
-          <div className="services-grid">
-            {/* Service 1 */}
-            <div className="service-card">
-              <div className="service-card-image-wrapper">
-                <div className="service-image" style={{backgroundImage: "url('/nails.png')"}}></div>
-              </div>
-              <div className="service-card-content">
-                <h3>Luxury Nails</h3>
-                <p>Expert manicures en pedicures met premium beige en zachte kleurafwerkingen.</p>
-                <Link to="/services" className="link-arrow">Bekijk details &rarr;</Link>
-              </div>
-            </div>
-            
-            {/* Service 2 */}
-            <div className="service-card">
-              <div className="service-card-image-wrapper">
-                <div className="service-image" style={{backgroundImage: "url('/lashes.png')"}}></div>
-              </div>
-              <div className="service-card-content">
-                <h3>Lash Extensions</h3>
-                <p>Perfecte, natuurlijk ogende extensions voor een moeiteloos elegante look.</p>
-                <Link to="/services" className="link-arrow">Bekijk details &rarr;</Link>
-              </div>
+
+          <a
+            href="https://beautynailsbydiana.be"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="collab-row-card"
+          >
+            {/* Links: logo */}
+            <div className="collab-logo-side">
+              <img src="/diana-logo.png" alt="Beauty Nails by Diana logo" className="collab-logo-img" />
             </div>
 
-            {/* Service 3 */}
-            <div className="service-card">
-              <div className="service-card-image-wrapper">
-                <div className="service-image" style={{backgroundImage: "url('/skincare.png')"}}></div>
+            {/* Rechts: tekst + 3 fotos */}
+            <div className="collab-info-side">
+              <span className="collab-badge">Samenwerking</span>
+              <h3>Beauty Nails by Diana</h3>
+              <p>
+                Voor alle nagelbehandelingen werken wij samen met Diana, uw gespecialiseerde nagelstyliste.
+                Diana is actief in <strong>Laakdal én Turnhout</strong> en staat klaar om u te verwennen met prachtige nagels.
+                Afspraken kunnen rechtstreeks bij haar geboekt worden via haar website.
+              </p>
+              <div className="collab-photos">
+                <img src="/diana-1.png" alt="Beauty Nails by Diana — werk 1" />
+                <img src="/diana-2.png" alt="Beauty Nails by Diana — werk 2" />
+                <img src="/diana-3.png" alt="Beauty Nails by Diana — werk 3" />
               </div>
-              <div className="service-card-content">
-                <h3>Facial Treatments</h3>
-                <p>Verjongende behandelingen met de beste producten voor een stralende huid.</p>
-                <Link to="/services" className="link-arrow">Bekijk details &rarr;</Link>
-              </div>
+              <span className="collab-link-arrow">Boek een afspraak bij Diana &rarr;</span>
             </div>
-          </div>
+          </a>
         </div>
       </section>
 
@@ -135,7 +125,7 @@ const Home = () => {
         <div className="container cta-container text-center">
           <h2>Klaar om jezelf te verwennen?</h2>
           <p>Boek vandaag nog je afspraak en ervaar het verschil van Hevanly's.</p>
-          <button className="btn btn-primary" style={{marginTop: '2rem'}} onClick={openBooking}>Boek nu</button>
+          <button className="btn btn-primary" style={{marginTop: '2rem'}} onClick={() => openBooking()}>Boek nu</button>
         </div>
       </section>
 

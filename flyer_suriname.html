@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+  .flyer-wrap { width: 1080px; height: 1920px; position: relative; overflow: hidden; font-family: 'Georgia', serif; }
+  canvas { position: absolute; top: 0; left: 0; width: 1080px; height: 1920px; display: block; }
+  .overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 40%, rgba(0,0,0,0.6) 100%); }
+  .content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 100px 80px 120px; text-align: center; }
+  .logo-wrap img { width: 280px; filter: drop-shadow(0 4px 24px rgba(0,0,0,0.8)); }
+  .badge { background: rgba(255,255,255,0.12); border: 2px solid rgba(255,255,255,0.35); backdrop-filter: blur(8px); border-radius: 60px; padding: 14px 44px; color: #fff; font-size: 32px; letter-spacing: 6px; text-transform: uppercase; font-weight: 300; margin-top: 36px; }
+  .main { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 0; }
+  .flag-accent { display: flex; gap: 10px; justify-content: center; margin-bottom: 44px; }
+  .flag-accent span { display: inline-block; width: 14px; height: 14px; border-radius: 50%; }
+  .flag-accent .g { background: #377e3f; }
+  .flag-accent .w { background: #fff; }
+  .flag-accent .r { background: #b40a2d; }
+  .flag-accent .y { background: #EFC743; }
+  .headline { font-size: 112px; font-weight: 700; color: #fff; line-height: 1; text-shadow: 0 4px 32px rgba(0,0,0,0.7); letter-spacing: -2px; font-family: 'Georgia', serif; }
+  .headline span { color: #EFC743; }
+  .subline { font-size: 52px; color: #EFC743; font-weight: 400; margin-top: 18px; letter-spacing: 2px; text-shadow: 0 2px 16px rgba(0,0,0,0.8); font-style: italic; }
+  .divider { width: 120px; height: 3px; background: linear-gradient(to right, transparent, #EFC743, transparent); margin: 52px auto; }
+  .desc { font-size: 36px; color: rgba(255,255,255,0.92); line-height: 1.65; max-width: 860px; text-shadow: 0 2px 12px rgba(0,0,0,0.7); font-family: 'Arial', sans-serif; font-weight: 300; }
+  .desc strong { color: #EFC743; font-weight: 600; }
+  .treatments { display: flex; flex-direction: column; gap: 20px; margin-top: 52px; width: 100%; max-width: 860px; }
+  .treatment-item { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-left: 5px solid #EFC743; border-radius: 12px; padding: 24px 36px; color: #fff; font-size: 34px; text-align: left; font-family: 'Arial', sans-serif; text-shadow: 0 1px 8px rgba(0,0,0,0.6); }
+  .bottom { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+  .date-box { background: #EFC743; color: #1a1a1a; font-size: 38px; font-weight: 700; padding: 26px 72px; border-radius: 60px; letter-spacing: 1px; text-transform: uppercase; font-family: 'Arial', sans-serif; box-shadow: 0 8px 40px rgba(239,199,67,0.4); }
+  .brand { color: rgba(255,255,255,0.6); font-size: 28px; letter-spacing: 4px; text-transform: uppercase; font-family: 'Arial', sans-serif; }
+  .star-row { font-size: 28px; letter-spacing: 8px; color: #EFC743; margin-bottom: 8px; }
+</style>
+</head>
+<body>
+<div class="flyer-wrap">
+  <canvas id="flag"></canvas>
+  <div class="overlay"></div>
+  <div class="content">
+    <div>
+      <div class="logo-wrap">
+        <img src="src/assets/logo_transparent.png" alt="Hevanlys Beautybar" />
+      </div>
+      <div class="badge">Coming Soon</div>
+    </div>
+
+    <div class="main">
+      <div class="flag-accent">
+        <span class="g"></span><span class="w"></span><span class="r"></span><span class="y"></span><span class="r"></span><span class="w"></span><span class="g"></span>
+      </div>
+      <div class="headline">Suriname<br><span>Hairtreatment</span></div>
+      <div class="subline">met natuurlijke producten</div>
+      <div class="divider"></div>
+      <div class="desc">
+        Exclusieve behandelingen met <strong>100% natuurlijke producten uit Suriname</strong>
+      </div>
+      <div class="treatments">
+        <div class="treatment-item">🌿 &nbsp; Vitamine behandeling</div>
+        <div class="treatment-item">💨 &nbsp; Stoombehandeling</div>
+        <div class="treatment-item">✨ &nbsp; Oliebehandeling</div>
+      </div>
+    </div>
+
+    <div class="bottom">
+      <div class="star-row">★ ★ ★</div>
+      <div class="date-box">📅 &nbsp; Boek vanaf 1 juli</div>
+      <div class="brand">Hevanlys Beautybar</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const canvas = document.getElementById('flag');
+const ctx = canvas.getContext('2d');
+canvas.width = 1080;
+canvas.height = 1920;
+
+// Surinaamse vlag kleuren
+const GREEN = '#377e3f';
+const WHITE = '#f5f5f5';
+const RED = '#b40a2d';
+const YELLOW = '#EFC743';
+
+// Golvingsparameters - subtiel
+const WAVE_AMPLITUDE = 28;
+const WAVE_FREQ = 0.012;
+const WAVE_SPEED = 0.018;
+const WAVE_COUNT = 2.5; // aantal golven over breedte
+let time = 0;
+
+function drawWavingFlag(t) {
+  const W = 1080;
+  const H = 1920;
+
+  // Vlag proportions (totaal 10 delen)
+  // green=2, white=1, red=4, white=1, green=2
+  const stripeParts = [2, 1, 4, 1, 2];
+  const stripeColors = [GREEN, WHITE, RED, WHITE, GREEN];
+  const total = 10;
+
+  // Voor elke kolom x bereken wave offset
+  // Off-screen buffer tekenen om scanlines te kunnen doen
+  const offCanvas = document.createElement('canvas');
+  offCanvas.width = W;
+  offCanvas.height = H;
+  const offCtx = offCanvas.getContext('2d');
+
+  // Teken vlag zonder golving
+  let y = 0;
+  for (let i = 0; i < 5; i++) {
+    offCtx.fillStyle = stripeColors[i];
+    const sh = (stripeParts[i] / total) * H;
+    offCtx.fillRect(0, y, W, sh);
+    y += sh;
+  }
+
+  // Ster tekenen op midden van rode strook
+  const starCx = W / 2;
+  const starCy = H * (2 + 1 + 2) / 10; // midden van rode strook
+  const starR = 110;
+  offCtx.fillStyle = YELLOW;
+  offCtx.beginPath();
+  for (let p = 0; p < 5; p++) {
+    const angle = (p * 4 * Math.PI / 5) - Math.PI / 2;
+    const innerAngle = angle + (2 * Math.PI / 10);
+    const ox = starCx + starR * Math.cos(angle);
+    const oy = starCy + starR * Math.sin(angle);
+    const ix = starCx + (starR * 0.4) * Math.cos(innerAngle);
+    const iy = starCy + (starR * 0.4) * Math.sin(innerAngle);
+    if (p === 0) offCtx.moveTo(ox, oy);
+    else offCtx.lineTo(ox, oy);
+    offCtx.lineTo(ix, iy);
+  }
+  offCtx.closePath();
+  offCtx.fill();
+
+  // Nu golfvervormde vlag tekenen per kolom
+  ctx.clearRect(0, 0, W, H);
+  const imgData = offCtx.getImageData(0, 0, W, H);
+
+  // Teken kolom voor kolom met verticale wave offset
+  for (let x = 0; x < W; x++) {
+    // wave: sinus op basis van x-positie en tijd
+    const wavePhase = (x / W) * WAVE_COUNT * Math.PI * 2 - t;
+    const offsetY = Math.sin(wavePhase) * WAVE_AMPLITUDE;
+
+    // Diepte-effect: kolommen aan rechts gaan iets meer
+    const depthScale = 0.7 + 0.3 * (x / W);
+    const actualOffset = offsetY * depthScale;
+
+    // Helderheidseffect: licht/schaduw op basis van golf
+    const lightFactor = 1 + 0.12 * Math.cos(wavePhase);
+
+    // Trek elke pixel van deze kolom verschoven
+    for (let y2 = 0; y2 < H; y2++) {
+      const srcY = Math.round(y2 - actualOffset);
+      if (srcY < 0 || srcY >= H) continue;
+      const srcIdx = (srcY * W + x) * 4;
+      const dstIdx = (y2 * W + x) * 4;
+      // Dit is te traag, gebruik drawImage benadering
+    }
+  }
+
+  // Snellere methode: gebruik ctx.drawImage met clip per kolom
+  ctx.clearRect(0, 0, W, H);
+  
+  // Teken base vlag
+  let yOff = 0;
+  for (let i = 0; i < 5; i++) {
+    const sh = (stripeParts[i] / total) * H;
+    ctx.fillStyle = stripeColors[i];
+    // Golf per stripe - gebruik beginPath + clip approach
+    ctx.fillRect(0, yOff, W, sh);
+    yOff += sh;
+  }
+
+  // Ster
+  const sCx = W / 2;
+  const sCy = H * 0.5; // midden
+  const sR = 110;
+  ctx.fillStyle = YELLOW;
+  ctx.beginPath();
+  for (let p = 0; p < 5; p++) {
+    const angle = (p * 4 * Math.PI / 5) - Math.PI / 2;
+    const innerAngle = angle + (2 * Math.PI / 10);
+    const ox = sCx + sR * Math.cos(angle);
+    const oy = sCy + sR * Math.sin(angle);
+    const ix = sCx + (sR * 0.4) * Math.cos(innerAngle);
+    const iy = sCy + (sR * 0.4) * Math.sin(innerAngle);
+    if (p === 0) ctx.moveTo(ox, oy);
+    else ctx.lineTo(ox, oy);
+    ctx.lineTo(ix, iy);
+  }
+  ctx.closePath();
+  ctx.fill();
+
+  // Nu golf overlay via perspectief warp - gebruik vertical scanlines
+  // Maak offscreen met de platte vlag
+  const flatCanvas = offCanvas;
+
+  // Teken nu de golvende versie via scanlines
+  ctx.clearRect(0, 0, W, H);
+  for (let x = 0; x < W; x++) {
+    const wavePhase = (x / W) * WAVE_COUNT * Math.PI * 2 - t;
+    const offsetY = Math.sin(wavePhase) * WAVE_AMPLITUDE * (0.6 + 0.4 * x / W);
+
+    // Light/shadow
+    const brightness = 1 + 0.15 * Math.cos(wavePhase);
+
+    ctx.save();
+    ctx.rect(x, 0, 1, H);
+    ctx.clip();
+    ctx.globalAlpha = brightness > 1 ? 1 : brightness;
+    ctx.drawImage(flatCanvas, 0, -offsetY);
+    ctx.restore();
+  }
+
+  // Subtiel licht/shadow sweep
+  for (let x = 0; x < W; x++) {
+    const wavePhase = (x / W) * WAVE_COUNT * Math.PI * 2 - t;
+    const brightness = Math.cos(wavePhase);
+    if (brightness > 0) {
+      ctx.save();
+      ctx.rect(x, 0, 1, H);
+      ctx.clip();
+      ctx.fillStyle = `rgba(255,255,255,${brightness * 0.07})`;
+      ctx.fillRect(x, 0, 1, H);
+      ctx.restore();
+    } else {
+      ctx.save();
+      ctx.rect(x, 0, 1, H);
+      ctx.clip();
+      ctx.fillStyle = `rgba(0,0,0,${Math.abs(brightness) * 0.12})`;
+      ctx.fillRect(x, 0, 1, H);
+      ctx.restore();
+    }
+  }
+}
+
+function animate() {
+  time += WAVE_SPEED;
+  drawWavingFlag(time);
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
+</body>
+</html>

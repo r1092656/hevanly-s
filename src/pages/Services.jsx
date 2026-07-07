@@ -6,7 +6,7 @@ const Services = () => {
   const { openBooking } = useBooking();
   const [activeCategory, setActiveCategory] = useState('ALLE');
 
-  const categories = ['ALLE', 'NATUURLIJK HAAR', 'HAIRSTYLING', 'HAARKLEURING', 'WEAVE & PRUIK', 'VLECHTEN', 'DREADLOCKS', 'WENKBRAUWEN & WIMPERS', 'MANICURE'];
+  const categories = ['ALLE', 'NATUURLIJK HAAR', 'HAIRSTYLING', 'HAARKLEURING', 'WEAVE & PRUIK', 'VLECHTEN', 'DREADLOCKS', 'WENKBRAUWEN & WIMPERS', 'NAILS'];
 
   const services = [
     { id: 1, name: 'Detox Treatment', category: 'NATUURLIJK HAAR', price: '€90', desc: '120 min' },
@@ -47,12 +47,10 @@ const Services = () => {
     { id: 36, name: 'Eyebrow Shaping', category: 'WENKBRAUWEN & WIMPERS', price: '€15', desc: '30 min' },
     { id: 37, name: 'Eyebrow Shaping with Tint', category: 'WENKBRAUWEN & WIMPERS', price: '€40', desc: '60 min' },
     { id: 38, name: 'Cluster Lashes', category: 'WENKBRAUWEN & WIMPERS', price: '€35', desc: '30 min' },
-    { id: 39, name: 'Manicure without Polish', category: 'MANICURE', price: '€25', desc: '60 min' },
-    { id: 40, name: 'Manicure with Gel Polish', category: 'MANICURE', price: '€45', desc: '75 min' },
   ];
 
-  const filteredServices = activeCategory === 'ALLE' 
-    ? services 
+  const filteredServices = activeCategory === 'ALLE' || activeCategory === 'NAILS'
+    ? services.filter(s => s.category !== 'MANICURE')
     : services.filter(s => s.category === activeCategory);
 
   return (
@@ -78,23 +76,69 @@ const Services = () => {
             ))}
           </div>
 
-          <div className="services-list-grid">
-            {filteredServices.map(service => (
-              <div key={service.id} className="service-menu-item">
-                <div className="service-top">
-                  <h3>{service.name}</h3>
-                  <div className="service-line"></div>
-                  <span className="service-price">{service.price}</span>
-                </div>
-                <p className="service-desc">{service.desc}</p>
-                <div className="service-action">
-                  <button className="book-link-btn" onClick={() => openBooking(service)}>Boek deze behandeling</button>
-                </div>
+          {/* Nails tab: toon alleen de Diana-card */}
+          {activeCategory === 'NAILS' ? (
+            <a
+              href="https://beautynailsbydiana.be"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="services-diana-card"
+            >
+              <div className="services-diana-logo">
+                <img src="/diana-logo.png" alt="Beauty Nails by Diana" />
               </div>
-            ))}
-          </div>
-          
-          {/* We will add Booking integration later */}
+              <div className="services-diana-info">
+                <span className="services-diana-badge">Samenwerking</span>
+                <h3>Beauty Nails by Diana</h3>
+                <p>
+                  Voor nagelbehandelingen werken wij samen met Diana, uw gespecialiseerde nagelstyliste.
+                  Zij is actief in <strong>Laakdal én Turnhout</strong> en staat klaar om u te verwennen.
+                  Afspraken boek je rechtstreeks via haar website.
+                </p>
+                <div className="services-diana-photos">
+                  <img src="/diana-1.png" alt="nail werk 1" />
+                  <img src="/diana-2.png" alt="nail werk 2" />
+                  <img src="/diana-3.png" alt="nail werk 3" />
+                </div>
+                <span className="services-diana-link">Boek een afspraak bij Diana &rarr;</span>
+              </div>
+            </a>
+          ) : (
+            <>
+              <div className="services-list-grid">
+                {filteredServices.map(service => (
+                  <div key={service.id} className="service-menu-item">
+                    <div className="service-top">
+                      <h3>{service.name}</h3>
+                      <div className="service-line"></div>
+                      <span className="service-price">{service.price}</span>
+                    </div>
+                    <p className="service-desc">{service.desc}</p>
+                    <div className="service-action">
+                      <button className="book-link-btn" onClick={() => openBooking(service)}>Boek deze behandeling</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Bij ALLE: Diana-kaart onderaan als teaser */}
+              {activeCategory === 'ALLE' && (
+                <a
+                  href="https://beautynailsbydiana.be"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="services-diana-teaser"
+                >
+                  <img src="/diana-logo.png" alt="Beauty Nails by Diana" className="teaser-logo" />
+                  <div>
+                    <span className="services-diana-badge">Samenwerking — Nails</span>
+                    <p>Voor nagelbehandelingen werken wij samen met <strong>Beauty Nails by Diana</strong> (Laakdal &amp; Turnhout).</p>
+                  </div>
+                  <span className="services-diana-link">Bezoek beautynailsbydiana.be &rarr;</span>
+                </a>
+              )}
+            </>
+          )}
         </div>
       </section>
     </div>

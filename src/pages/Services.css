@@ -97,8 +97,151 @@
   color: var(--color-secondary);
 }
 
+/* Diana collaboration card — volledige weergave (NAILS tab) */
+.services-diana-card {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.services-diana-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.services-diana-logo {
+  flex: 0 0 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.services-diana-logo img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+}
+
+.services-diana-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.services-diana-info h3 {
+  font-size: 1.7rem;
+  margin: 0;
+  color: var(--color-text);
+}
+
+.services-diana-info p {
+  color: var(--color-text-light);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.services-diana-badge {
+  display: inline-block;
+  background-color: var(--color-accent);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 0.2rem 0.7rem;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.services-diana-photos {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.services-diana-photos img {
+  width: calc(33.33% - 0.5rem);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+}
+
+.services-diana-link {
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* Diana teaser — onderaan bij ALLE */
+.services-diana-teaser {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.75rem;
+  text-decoration: none;
+  color: inherit;
+  max-width: 1000px;
+  margin: 2rem auto 0;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.services-diana-teaser:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.teaser-logo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+}
+
+.services-diana-teaser div {
+  flex: 1;
+}
+
+.services-diana-teaser p {
+  margin: 0.3rem 0 0;
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
 @media (max-width: 768px) {
   .services-list-grid {
     grid-template-columns: 1fr;
+  }
+
+  .services-diana-card {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .services-diana-logo {
+    flex: none;
+    width: 100%;
+  }
+
+  .services-diana-teaser {
+    flex-wrap: wrap;
   }
 }
