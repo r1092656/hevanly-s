@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail } from 'lucide-react';
+import { SALON_INFO } from '../config/salonConfig';
 import './Footer.css';
 
 const Footer = () => {
@@ -11,8 +12,7 @@ const Footer = () => {
           <h2>Hevanly's Beautybar</h2>
           <p>Uw premium bestemming voor schoonheid en elegantie. Laat ons u verwennen met uitzonderlijke zorg.</p>
           <div className="social-links">
-            <a href="https://www.instagram.com/Hevanlysbeautybar" className="social-icon">IG</a>
-            <a href="#" className="social-icon">FB</a>
+            <a href={SALON_INFO.instagram} className="social-icon">IG</a>
           </div>
         </div>
 
@@ -43,11 +43,11 @@ const Footer = () => {
             </li>
             <li>
               <Phone size={20} className="contact-icon" />
-              <span>+32 465 17 27 90 </span>
+              <span>{SALON_INFO.phone}</span>
             </li>
             <li>
               <Mail size={20} className="contact-icon" />
-              <span>hello@hevanlysbeautybar.be</span>
+              <a href={`mailto:${SALON_INFO.email}`} style={{color:'inherit'}}>{SALON_INFO.email}</a>
             </li>
           </ul>
         </div>

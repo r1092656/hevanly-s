@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useBooking } from '../context/BookingContext';
 import { X, CheckCircle, ChevronRight, ChevronLeft } from 'lucide-react';
+import { getDayConfig, generateSlots, getBlockedSlots } from '../config/salonConfig';
 import './BookingModal.css';
 
 const ALL_SERVICES = [
@@ -46,7 +47,6 @@ const ALL_SERVICES = [
 ];
 
 const CATS = ['Alle','Natuurlijk Haar','Hairstyling','Haarkleuring','Weave en Pruik','Vlechten','Dreadlocks','Wenkbrauwen','Nails'];
-const TIMES = ['10:00', '11:30', '13:00', '14:30', '16:00'];
 
 const BookingModal = () => {
   const { isBookingOpen, closeBooking, initialService, addBooking } = useBooking();
@@ -185,32 +185,73 @@ const BookingModal = () => {
             </div>
           )}
 
-          {step === 2 && (
-            <div className="step-content">
-              <h3>Kies Datum en Tijd</h3>
-              <div className="input-group">
-                <label className="input-label">Datum</label>
-                <input type="date" className="input-field" value={selectedDate}
-                  onChange={(e) => setSelectedDate(e.target.value)}
-                  min={new Date().toISOString().split('T')[0]} required />
-              </div>
-              {selectedDate && (
-                <div className="time-selection">
-                  <label className="input-label">Beschikbare tijden</label>
-                  <div className="time-grid">
-                    {TIMES.map(t => (
-                      <button key={t} className={`time-slot ${selectedTime === t ? 'selected' : ''}`}
-                        onClick={() => setSelectedTime(t)}>{t}</button>
-                    ))}
-                  </div>
+          {step === 2 && (() => {
+            const dayConfig = getDayConfig(selectedDate);
+            const isClosed = dayConfig?.status === 'gesloten';
+            const isOpAfspraak = dayConfig?.status === 'op-afspraak';
+            const allSlots = generateSlots(dayConfig);
+
+            // Haal bestaande boekingen op voor deze datum
+            const existingBookings = JSON.parse(localStorage.getItem('hevanly_bookings') || '[]');
+            const bookedTimesForDay = existingBookings
+              .filter(b => b.date === selectedDate)
+              .map(b => b.time);
+            const blockedSlots = getBlockedSlots(bookedTimesForDay);
+
+            return (
+              <div className="step-content">
+                <h3>Kies Datum en Tijd</h3>
+                <div className="input-group">
+                  <label className="input-label">Datum</label>
+                  <input type="date" className="input-field" value={selectedDate}
+                    onChange={(e) => { setSelectedDate(e.target.value); setSelectedTime(''); }}
+                    min={new Date().toISOString().split('T')[0]} required />
                 </div>
-              )}
-              <div className="step-actions split">
-                <button className="btn btn-outline" onClick={prevStep}><ChevronLeft size={18} /> Terug</button>
-                <button className="btn btn-primary" disabled={!selectedDate || !selectedTime} onClick={nextStep}>Doorgaan <ChevronRight size={18} /></button>
+
+                {selectedDate && isClosed && (
+                  <div className="day-closed-msg">
+                    De salon is <strong>gesloten</strong> op {dayConfig.day}. Kies een andere dag.
+                  </div>
+                )}
+
+                {selectedDate && isOpAfspraak && (
+                  <div className="day-afspraak-msg">
+                    {dayConfig.day} is <strong>op afspraak</strong>. Kies een tijdvoorkeur — we bevestigen uw afspraak.
+                  </div>
+                )}
+
+                {selectedDate && !isClosed && allSlots.length > 0 && (
+                  <div className="time-selection">
+                    <label className="input-label">Beschikbare tijden</label>
+                    <div className="time-grid">
+                      {allSlots.map(t => {
+                        const isBlocked = blockedSlots.has(t);
+                        const isSelected = selectedTime === t;
+                        return (
+                          <button
+                            key={t}
+                            className={`time-slot ${isSelected ? 'selected' : ''} ${isBlocked ? 'blocked' : ''}`}
+                            onClick={() => !isBlocked && setSelectedTime(t)}
+                            disabled={isBlocked}
+                            title={isBlocked ? 'Dit tijdstip is bezet' : ''}
+                          >
+                            {isBlocked ? <span>{t}<br/><small>Bezet</small></span> : t}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                <div className="step-actions split">
+                  <button className="btn btn-outline" onClick={prevStep}><ChevronLeft size={18} /> Terug</button>
+                  <button className="btn btn-primary"
+                    disabled={!selectedDate || !selectedTime || isClosed}
+                    onClick={nextStep}>Doorgaan <ChevronRight size={18} /></button>
+                </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {step === 3 && (
             <div className="step-content">

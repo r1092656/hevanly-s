@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Contact.css';
 import { MapPin, Phone, Mail } from 'lucide-react';
+import { SALON_INFO, OPENING_HOURS } from '../config/salonConfig';
 
 const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -16,6 +17,12 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!gdprChecked) return;
+    const name = e.target.querySelector('#name').value;
+    const email = e.target.querySelector('#email').value;
+    const message = e.target.querySelector('#message').value;
+    const subject = encodeURIComponent(`Contactbericht van ${name}`);
+    const body = encodeURIComponent(`Naam: ${name}\nE-mail: ${email}\n\nBericht:\n${message}`);
+    window.location.href = `mailto:${SALON_INFO.email}?subject=${subject}&body=${body}`;
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 5000);
   };
@@ -107,7 +114,7 @@ const Contact = () => {
                     <Mail className="info-icon" />
                     <div>
                       <strong>E-mail</strong>
-                      <p>hello@hevanlysbeautybar.be</p>
+                      <p><a href={`mailto:${SALON_INFO.email}`} style={{color:'inherit'}}>{SALON_INFO.email}</a></p>
                     </div>
                   </li>
                 </ul>
@@ -116,13 +123,14 @@ const Contact = () => {
               <div className="info-block">
                 <h3>Openingstijden</h3>
                 <ul className="info-list timeseries">
-                  <li><span>Maandag:</span> <span>Gesloten</span></li>
-                  <li><span>Dinsdag:</span> <span>10:00 - 18:00</span></li>
-                  <li><span>Woensdag:</span> <span>10:00 - 18:00</span></li>
-                  <li><span>Donderdag:</span> <span>10:00 - 20:00</span></li>
-                  <li><span>Vrijdag:</span> <span>10:00 - 18:00</span></li>
-                  <li><span>Zaterdag:</span> <span>09:00 - 16:00</span></li>
-                  <li><span>Zondag:</span> <span>Gesloten</span></li>
+                  {OPENING_HOURS.map(({ day, label, status }) => (
+                    <li key={day}>
+                      <span>{day}:</span>
+                      <span style={{ color: status === 'gesloten' ? 'var(--color-text-light)' : 'inherit', fontStyle: status === 'op-afspraak' ? 'italic' : 'normal' }}>
+                        {label}
+                      </span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>

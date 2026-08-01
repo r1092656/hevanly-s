@@ -21,7 +21,7 @@ const AlgemeneVoorwaarden = () => {
           <div className="legal-block">
             <h2>1. Algemeen</h2>
             <p><strong>Hevanly's Beautybar</strong>, gevestigd te Graatakker 118, Bus B, 2300 Turnhout, België (hierna "de salon"), is verantwoordelijk voor de dienstverlening beschreven op deze website.</p>
-            <p>E-mail: <a href="mailto:hello@hevanlysbeautybar.be">hello@hevanlysbeautybar.be</a> | Tel: +32 465 17 27 90</p>
+            <p>E-mail: <a href="mailto:hevanlysbeautybar@outlook.be">hevanlysbeautybar@outlook.be</a> | Tel: +32 465 17 27 90</p>
           </div>
 
           <div className="legal-block">
