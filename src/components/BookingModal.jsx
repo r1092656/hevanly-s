@@ -87,25 +87,41 @@ const BookingModal = () => {
   const nextStep = () => setStep(p => p + 1);
   const prevStep = () => { if (step === 2 && initialService) resetAndClose(); else setStep(p => p - 1); };
   const handleFormSubmit = (e) => { e.preventDefault(); nextStep(); };
-  const handlePayment = () => {
+  const handlePayment = async () => {
     setPaymentLoading(true);
-    setTimeout(() => {
-      setPaymentLoading(false);
-      addBooking({ service: selectedService, date: selectedDate, time: selectedTime, customer: personalDetails, depositAmount: depositInfo.deposit, totalAmount: depositInfo.total, status: 'PAID' });
-      // Stuur bevestigingsmail naar klant + salon
-      sendBookingEmail({
-        service:       selectedService.name,
+    try {
+      // Sla boekingsgegevens op voor na de Mollie redirect
+      localStorage.setItem('pending_booking', JSON.stringify({
+        service:       selectedService,
         date:          selectedDate,
         time:          selectedTime,
-        name:          personalDetails.name,
-        email:         personalDetails.email,
-        phone:         personalDetails.phone,
+        customer:      personalDetails,
         depositAmount: depositInfo.deposit,
         balanceAmount: depositInfo.balance,
-        depositPaid:   true,
-      }).catch(err => console.error('EmailJS booking error:', err));
-      nextStep();
-    }, 2500);
+        totalAmount:   depositInfo.total,
+      }));
+
+      const res = await fetch('/api/create-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount:      depositInfo.deposit.toFixed(2),
+          description: `Voorschot afspraak – ${selectedService.name} – ${personalDetails.name}`,
+          redirectUrl: `${window.location.origin}/booking-success`,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+      } else {
+        console.error('Mollie error:', data.error);
+        setPaymentLoading(false);
+      }
+    } catch (err) {
+      console.error('Payment error:', err);
+      setPaymentLoading(false);
+    }
   };
   const resetAndClose = () => {
     setStep(1); setSelectedService(null); setSelectedCategory('Alle');

@@ -55,6 +55,36 @@
   border-radius: var(--radius-lg);
 }
 
+.salon-photo-section {
+  padding: 0 0 4rem;
+}
+
+.salon-photo-wrapper {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.salon-photo {
+  width: 100%;
+  max-height: 500px;
+  object-fit: cover;
+  display: block;
+}
+
+.salon-photo-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.5));
+  color: white;
+  padding: 1.5rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
 .values-section {
   background-color: var(--color-surface);
 }

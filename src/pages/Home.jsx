@@ -12,7 +12,7 @@ const Home = () => {
     <div className="home-page animate-fade-in">
       {/* Hero Section */}
       <section className="hero">
-        <div className="hero-background" style={{backgroundImage: "url('/hero.png')"}}></div>
+        <div className="hero-background" style={{backgroundImage: "url('/salon-hero.jpg')"}}></div>
         <div className="hero-overlay"></div>
         <div className="container hero-content">
           <span className="hero-subtitle">Premium Beauty Bar</span>

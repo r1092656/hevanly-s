@@ -16,6 +16,7 @@ import Contact from './pages/Contact';
 import Reviews from './pages/Reviews';
 import Checkout from './pages/Checkout';
 import PaymentSuccess from './pages/PaymentSuccess';
+import BookingSuccess from './pages/BookingSuccess';
 
 // Admin Pages
 import AdminLogin from './pages/AdminLogin';
@@ -45,6 +46,7 @@ function App() {
                     <Route path="/products" element={<Products />} />
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/payment-success" element={<PaymentSuccess />} />
+                    <Route path="/booking-success" element={<BookingSuccess />} />
                     <Route path="/reviews" element={<Reviews />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/privacy" element={<Privacy />} />

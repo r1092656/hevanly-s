@@ -32,6 +32,15 @@ const About = () => {
         </div>
       </section>
 
+      <section className="section salon-photo-section">
+        <div className="container">
+          <div className="salon-photo-wrapper">
+            <img src="/salon-about.jpg" alt="Hevanly's Beautybar salon" className="salon-photo" />
+            <div className="salon-photo-caption">Hevanly's Beautybar — Graatakker 118, Turnhout</div>
+          </div>
+        </div>
+      </section>
+
       <section className="section values-section">
         <div className="container text-center">
           <h2 style={{ marginBottom: '3rem' }}>Waarom wij?</h2>
