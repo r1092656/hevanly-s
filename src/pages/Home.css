@@ -22,8 +22,9 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
   background-color: var(--color-primary); /* fallback */
   z-index: 1;
 }
