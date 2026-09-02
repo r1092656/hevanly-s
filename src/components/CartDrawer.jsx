@@ -41,7 +41,7 @@ const CartDrawer = () => {
             <div className="empty-cart">
               <ShoppingBag size={64} strokeWidth={1} />
               <p>Uw winkelwagen is leeg</p>
-              <button className="btn btn-outline" onClick={closeCart}>
+              <button className="btn btn-outline" onClick={() => { closeCart(); navigate('/products'); }}>
                 Begin met winkelen
               </button>
             </div>

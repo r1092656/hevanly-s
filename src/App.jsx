@@ -28,6 +28,7 @@ import Privacy from './pages/Privacy';
 import AlgemeneVoorwaarden from './pages/AlgemeneVoorwaarden';
 import NotFound from './pages/NotFound';
 import CookieBanner from './components/CookieBanner';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <NewsProvider>
           <ShopProvider>
             <BookingProvider>
+              <ScrollToTop />
               <div className="app-layout">
                 <Navbar />
                 <main>
