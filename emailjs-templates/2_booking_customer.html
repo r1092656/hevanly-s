@@ -1,0 +1,61 @@
+<!-- Template naam: booking_customer -->
+<!-- To email: {{customer_email}} -->
+<!-- Subject: Boekingsbevestiging – Hevanly's Beautybar -->
+
+<!DOCTYPE html>
+<html lang="nl">
+<head><meta charset="UTF-8"><style>
+  body { font-family: Georgia, serif; background: #f5f0eb; margin: 0; padding: 0; }
+  .wrap { max-width: 560px; margin: 30px auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .header { background: #6c5b7a; padding: 36px 40px; text-align: center; }
+  .header h1 { color: #fff; margin: 0; font-size: 1.5rem; letter-spacing: 1px; }
+  .header p { color: rgba(255,255,255,0.75); margin: 6px 0 0; font-size: 0.9rem; }
+  .body { padding: 36px 40px; }
+  .greeting { font-size: 1rem; color: #1a1a1a; margin-bottom: 24px; line-height: 1.6; }
+  .card { background: #f5f0eb; border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+  .card h3 { margin: 0 0 16px; color: #6c5b7a; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+  .row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 0.95rem; }
+  .row:last-child { border-bottom: none; }
+  .label { color: #999; }
+  .value { color: #1a1a1a; font-weight: 600; }
+  .price-card { background: #6c5b7a; border-radius: 12px; padding: 20px 24px; color: #fff; margin-bottom: 24px; }
+  .price-card .row { border-bottom-color: rgba(255,255,255,0.15); color: #fff; }
+  .price-card .label { color: rgba(255,255,255,0.7); }
+  .price-card .value { color: #fff; }
+  .note { font-size: 0.88rem; color: #888; line-height: 1.6; margin-bottom: 24px; }
+  .footer { background: #f5f0eb; padding: 20px 40px; text-align: center; font-size: 0.8rem; color: #aaa; }
+  .footer a { color: #6c5b7a; text-decoration: none; }
+</style></head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>Hevanly's Beautybar</h1>
+    <p>Uw afspraak is bevestigd ✓</p>
+  </div>
+  <div class="body">
+    <p class="greeting">Beste {{customer_name}},<br><br>
+    Bedankt voor uw boeking bij Hevanly's Beautybar. Hieronder vindt u een overzicht van uw afspraak.</p>
+
+    <div class="card">
+      <h3>Afspraakdetails</h3>
+      <div class="row"><span class="label">Behandeling</span><span class="value">{{service_name}}</span></div>
+      <div class="row"><span class="label">Datum</span><span class="value">{{booking_date}}</span></div>
+      <div class="row"><span class="label">Tijdstip</span><span class="value">{{booking_time}}</span></div>
+      <div class="row"><span class="label">Adres</span><span class="value">{{salon_address}}</span></div>
+    </div>
+
+    <div class="price-card">
+      <h3 style="margin:0 0 16px;font-size:0.9rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.7)">Betaling</h3>
+      <div class="row"><span class="label">Voorschot betaald</span><span class="value">{{deposit_amount}}</span></div>
+      <div class="row"><span class="label">Restbedrag in salon</span><span class="value">{{balance_amount}}</span></div>
+    </div>
+
+    <p class="note">Het restbedrag betaalt u bij aankomst in de salon. Vergeet niet op tijd aanwezig te zijn. Bij annulering, gelieve minstens 24 uur op voorhand te verwittigen.</p>
+  </div>
+  <div class="footer">
+    <p>{{salon_name}} · {{salon_address}}</p>
+    <p>Tel: {{salon_phone}} · <a href="{{salon_instagram}}">Instagram</a></p>
+  </div>
+</div>
+</body>
+</html>

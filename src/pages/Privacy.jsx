@@ -22,7 +22,7 @@ const Privacy = () => {
             <h2>1. Wie zijn wij?</h2>
             <p><strong>Hevanly's Beautybar</strong></p>
             <p>Graatakker 118, Bus B, 2300 Turnhout, België</p>
-            <p>E-mail: <a href="mailto:hevanlysbeautybar@outlook.be">hevanlysbeautybar@outlook.be</a></p>
+            <p>E-mail: <a href="mailto:hevanlysbeautybar2@outlook.be">hevanlysbeautybar2@outlook.be</a></p>
             <p>Telefoon: +32 465 17 27 90</p>
             <p>Wij zijn de verwerkingsverantwoordelijke voor uw persoonsgegevens.</p>
           </div>
@@ -99,7 +99,7 @@ const Privacy = () => {
               <li><strong>Recht op overdraagbaarheid</strong> – u kunt uw gegevens opvragen in een leesbaar formaat</li>
               <li><strong>Recht van bezwaar</strong> – u kunt bezwaar maken tegen de verwerking</li>
             </ul>
-            <p>Stuur uw verzoek naar <a href="mailto:hevanlysbeautybar@outlook.be">hevanlysbeautybar@outlook.be</a>. Wij reageren binnen 30 dagen.</p>
+            <p>Stuur uw verzoek naar <a href="mailto:hevanlysbeautybar2@outlook.be">hevanlysbeautybar2@outlook.be</a>. Wij reageren binnen 30 dagen.</p>
             <p>U heeft ook het recht om klacht in te dienen bij de Belgische Gegevensbeschermingsautoriteit: <a href="https://www.gegevensbeschermingsautoriteit.be" target="_blank" rel="noopener noreferrer">www.gegevensbeschermingsautoriteit.be</a></p>
           </div>
 

@@ -12,7 +12,7 @@ const Footer = () => {
           <h2>Hevanly's Beautybar</h2>
           <p>Uw premium bestemming voor schoonheid en elegantie. Laat ons u verwennen met uitzonderlijke zorg.</p>
           <div className="social-links">
-            <a href={SALON_INFO.instagram} className="social-icon">IG</a>
+            <a href={SALON_INFO.instagram} target="_blank" rel="noopener noreferrer" className="social-icon">IG</a>
           </div>
         </div>
 

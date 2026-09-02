@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useShop } from '../context/ShopContext';
 import { Link, useNavigate } from 'react-router-dom';
 import { CreditCard, CheckCircle, ChevronLeft } from 'lucide-react';
+import { sendOrderEmail } from '../services/emailService';
 import './Checkout.css';
 
 const Checkout = () => {
@@ -30,17 +31,41 @@ const Checkout = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsProcessing(true);
-    
-    // Simulate Payconiq Payment Delay
-    setTimeout(() => {
-      processPurchase(formData);
+
+    try {
+      // Sla bestelgegevens op voor na de redirect
+      localStorage.setItem('pending_order', JSON.stringify({
+        formData,
+        cart,
+        cartTotal,
+      }));
+
+      const res = await fetch('/api/create-payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: cartTotal.toFixed(2),
+          description: `Bestelling Hevanly's Beautybar – ${formData.fullName}`,
+          redirectUrl: `${window.location.origin}/payment-success`,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.checkoutUrl) {
+        // Redirect naar Mollie betaalpagina
+        window.location.href = data.checkoutUrl;
+      } else {
+        console.error('Mollie error:', data.error);
+        setIsProcessing(false);
+      }
+    } catch (err) {
+      console.error('Payment error:', err);
       setIsProcessing(false);
-      setIsSuccess(true);
-      window.scrollTo(0, 0);
-    }, 2500);
+    }
   };
 
   if (isSuccess) {
@@ -138,11 +163,13 @@ const Checkout = () => {
               <div className="payment-option selected">
                 <div className="payment-radio"></div>
                 <div className="payment-details">
-                  <span className="payment-name">Payconiq</span>
-                  <p>Je wordt doorverwezen naar de Payconiq-app om je betaling te voltooien.</p>
+                  <span className="payment-name">Bancontact</span>
+                  <p>Je wordt doorverwezen naar de beveiligde Bancontact betaalpagina.</p>
                 </div>
                 <div className="payment-logo">
-                  <img src="https://www.payconiq.be/favicon.ico" alt="Payconiq" />
+                  <img src="/bancontact-pay.png" alt="Bancontact"
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                    style={{ height: '28px', width: 'auto' }} />
                 </div>
               </div>
             </section>
@@ -170,7 +197,7 @@ const Checkout = () => {
               className={`btn btn-primary pay-btn ${isProcessing ? 'loading' : ''}`}
               disabled={isProcessing || !gdprChecked}
             >
-              {isProcessing ? 'Betaling verwerken...' : `€${cartTotal.toFixed(2)} betalen via Payconiq`}
+              {isProcessing ? 'Betaling verwerken...' : `€${cartTotal.toFixed(2)} betalen via Bancontact`}
             </button>
           </form>
 

@@ -16,7 +16,7 @@ const Products = () => {
         <div className="container">
           <h1 className="animate-fade-in">Schoonheidsessentials</h1>
           <p className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Geselecteerde producten voor uw dagelijkse zelfzorgritueel. 
+            Geselecteerde producten voor uw dagelijkse zelfzorgritueel.
             Premium kwaliteit, met liefde samengesteld.
           </p>
         </div>

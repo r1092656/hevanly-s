@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useBooking } from '../context/BookingContext';
 import { X, CheckCircle, ChevronRight, ChevronLeft } from 'lucide-react';
 import { getDayConfig, generateSlots, getBlockedSlots } from '../config/salonConfig';
+import { sendBookingEmail } from '../services/emailService';
 import './BookingModal.css';
 
 const ALL_SERVICES = [
@@ -91,6 +92,18 @@ const BookingModal = () => {
     setTimeout(() => {
       setPaymentLoading(false);
       addBooking({ service: selectedService, date: selectedDate, time: selectedTime, customer: personalDetails, depositAmount: depositInfo.deposit, totalAmount: depositInfo.total, status: 'PAID' });
+      // Stuur bevestigingsmail naar klant + salon
+      sendBookingEmail({
+        service:       selectedService.name,
+        date:          selectedDate,
+        time:          selectedTime,
+        name:          personalDetails.name,
+        email:         personalDetails.email,
+        phone:         personalDetails.phone,
+        depositAmount: depositInfo.deposit,
+        balanceAmount: depositInfo.balance,
+        depositPaid:   true,
+      }).catch(err => console.error('EmailJS booking error:', err));
       nextStep();
     }, 2500);
   };

@@ -85,6 +85,18 @@
   font-size: 1.1rem;
 }
 
+.cart-soon h3 {
+  font-size: 1.3rem;
+  color: var(--color-accent);
+  margin: 0;
+}
+
+.cart-soon p {
+  font-size: 0.9rem !important;
+  max-width: 280px;
+  line-height: 1.6;
+}
+
 .cart-items {
   list-style: none;
   padding: 0;

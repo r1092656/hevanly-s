@@ -4,7 +4,7 @@
 
 export const SALON_INFO = {
   name: "Hevanly's Beautybar",
-  email: 'hevanlysbeautybar@outlook.be',
+  email: 'hevanlysbeautybar2@outlook.be',
   phone: '+32 465 17 27 90',
   address: 'Graatakker 118, Bus B, 2300 Turnhout, België',
   instagram: 'https://www.instagram.com/Hevanlysbeautybar',

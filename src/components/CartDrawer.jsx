@@ -57,14 +57,14 @@ const CartDrawer = () => {
                     <p className="cart-item-price">€{item.price.toFixed(2)}</p>
                     <div className="cart-item-actions">
                       <div className="quantity-controls">
-                        <button 
+                        <button
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
                           className="quantity-btn"
                         >
                           <Minus size={14} />
                         </button>
                         <span className="quantity-value">{item.quantity}</span>
-                        <button 
+                        <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
                           className="quantity-btn"
                           disabled={item.quantity >= item.stock}
@@ -72,7 +72,7 @@ const CartDrawer = () => {
                           <Plus size={14} />
                         </button>
                       </div>
-                      <button 
+                      <button
                         className="remove-item"
                         onClick={() => removeFromCart(item.id)}
                       >

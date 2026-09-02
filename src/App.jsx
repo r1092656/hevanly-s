@@ -15,6 +15,7 @@ import Products from './pages/Products';
 import Contact from './pages/Contact';
 import Reviews from './pages/Reviews';
 import Checkout from './pages/Checkout';
+import PaymentSuccess from './pages/PaymentSuccess';
 
 // Admin Pages
 import AdminLogin from './pages/AdminLogin';
@@ -43,6 +44,7 @@ function App() {
                     <Route path="/services" element={<Services />} />
                     <Route path="/products" element={<Products />} />
                     <Route path="/checkout" element={<Checkout />} />
+                    <Route path="/payment-success" element={<PaymentSuccess />} />
                     <Route path="/reviews" element={<Reviews />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/privacy" element={<Privacy />} />
