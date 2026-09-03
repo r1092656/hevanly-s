@@ -7,20 +7,21 @@ import {
 } from '../config/emailConfig';
 
 // ── Boeking: mail naar klant + salon (via Cc) ─────────────
-export const sendBookingEmail = ({ service, date, time, name, email, phone, depositAmount, balanceAmount, depositPaid }) => {
+export const sendBookingEmail = ({ service, date, time, name, email, phone, depositAmount, balanceAmount, depositPaid, google_calendar_url }) => {
   return emailjs.send(
     EMAILJS_SERVICE_ID,
     TEMPLATE_BOOKING,
     {
-      customer_name:   name,
-      customer_email:  email,
-      customer_phone:  phone,
-      service_name:    service,
-      booking_date:    date,
-      booking_time:    time,
-      deposit_amount:  `€${depositAmount}`,
-      balance_amount:  `€${balanceAmount}`,
-      deposit_paid:    depositPaid ? 'Ja' : 'Nee',
+      customer_name:        name,
+      customer_email:       email,
+      customer_phone:       phone,
+      service_name:         service,
+      booking_date:         date,
+      booking_time:         time,
+      deposit_amount:       `€${depositAmount}`,
+      balance_amount:       `€${balanceAmount}`,
+      deposit_paid:         depositPaid ? 'Ja' : 'Nee',
+      google_calendar_url:  google_calendar_url || '',
     },
     EMAILJS_PUBLIC_KEY
   );
