@@ -2,6 +2,27 @@
   padding-top: 80px; /* Offset for fixed navbar */
 }
 
+.products-coming-soon {
+  text-align: center;
+  padding: 5rem 1rem;
+}
+
+.coming-soon-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.products-coming-soon h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+}
+
+.products-coming-soon p {
+  color: var(--color-text-light);
+  font-size: 1.05rem;
+}
+
 .products-hero {
   background-color: var(--color-bg);
   padding: 8rem 0 4rem;

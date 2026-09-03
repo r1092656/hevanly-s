@@ -1,108 +1,23 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
-// Product images
-import faceOilImg from '../assets/products/face_oil.png';
-import silkPillowcaseImg from '../assets/products/silk_pillowcase.png';
-import sleepMaskImg from '../assets/products/sleep_mask.png';
-import quartzRollerImg from '../assets/products/quartz_roller.png';
-import bodyScrubImg from '../assets/products/body_scrub.png';
-import handCreamImg from '../assets/products/hand_cream.png';
-import vitaminCImg from '../assets/products/vitamin_c_serum.png';
-import bathrobeImg from '../assets/products/bath_robe.png';
-import candleImg from '../assets/products/scented_candle.png';
-import footCreamImg from '../assets/products/foot_cream.png';
 
 const ShopContext = createContext();
 
 export const useShop = () => useContext(ShopContext);
 
-const INITIAL_PRODUCTS = [
-  {
-    id: 1,
-    name: 'Nourishing Face Oil',
-    price: 24.99,
-    stock: 8,
-    image: faceOilImg,
-    description: 'A luxurious blend of botanical oils to hydrate and rejuvenate your skin overnight.'
-  },
-  {
-    id: 2,
-    name: 'Silk Pillowcase',
-    price: 35.00,
-    stock: 15,
-    image: silkPillowcaseImg,
-    description: '100% Mulberry silk to protect your hair and skin while you dream.'
-  },
-  {
-    id: 3,
-    name: 'Lavender Sleep Mask',
-    price: 12.50,
-    stock: 20,
-    image: sleepMaskImg,
-    description: 'Soft silk mask with calming lavender scent for deep, restorative sleep.'
-  },
-  {
-    id: 4,
-    name: 'Rose Quartz Facial Roller',
-    price: 18.00,
-    stock: 10,
-    image: quartzRollerImg,
-    description: 'Promotes lymphatic drainage and depuffs for a natural, healthy glow.'
-  },
-  {
-    id: 5,
-    name: 'Organic Body Scrub',
-    price: 22.00,
-    stock: 12,
-    image: bodyScrubImg,
-    description: 'Gently exfoliates with natural sea salts and soothing essential oils.'
-  },
-  {
-    id: 6,
-    name: 'Shea Butter Hand Cream',
-    price: 14.50,
-    stock: 25,
-    image: handCreamImg,
-    description: 'Intensive moisture for dry hands, enriched with organic shea butter.'
-  },
-  {
-    id: 7,
-    name: 'Vitamin C Serum',
-    price: 28.00,
-    stock: 5,
-    image: vitaminCImg,
-    description: 'Brightening serum that targets dark spots and uneven skin tone.'
-  },
-  {
-    id: 8,
-    name: 'Bamboo Bath Robe',
-    price: 45.00,
-    stock: 10,
-    image: bathrobeImg,
-    description: 'Ultra-zacht, duurzaam bamboe badstof voor een luxueuze ervaring thuis.'
-  },
-  {
-    id: 9,
-    name: 'Scented Candle (Vanilla & Oud)',
-    price: 19.99,
-    stock: 18,
-    image: candleImg,
-    description: 'Hand-poured soy candle with a warm, sophisticated fragrance profile.'
-  },
-  {
-    id: 10,
-    name: 'Peppermint Foot Cream',
-    price: 16.00,
-    stock: 15,
-    image: footCreamImg,
-    description: 'Cooling peppermint oil and urea to soften and refresh tired feet.'
-  }
-];
+// Version bump clears old placeholder products from localStorage
+const SHOP_VERSION = 'v2';
 
 export const ShopProvider = ({ children }) => {
   const [products, setProducts] = useState(() => {
+    const savedVersion = localStorage.getItem('shop_version');
+    if (savedVersion !== SHOP_VERSION) {
+      localStorage.setItem('shop_version', SHOP_VERSION);
+      localStorage.removeItem('products');
+      return [];
+    }
     const savedProducts = localStorage.getItem('products');
-    return savedProducts ? JSON.parse(savedProducts) : INITIAL_PRODUCTS;
+    return savedProducts ? JSON.parse(savedProducts) : [];
   });
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);

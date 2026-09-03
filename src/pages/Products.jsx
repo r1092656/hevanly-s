@@ -24,11 +24,19 @@ const Products = () => {
 
       <section className="products-grid-section section">
         <div className="container">
-          <div className="products-grid">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {products.length === 0 ? (
+            <div className="products-coming-soon">
+              <div className="coming-soon-icon">🛍️</div>
+              <h2>Producten zijn binnenkort beschikbaar</h2>
+              <p>Ons assortiment wordt momenteel samengesteld. Kom binnenkort terug!</p>
+            </div>
+          ) : (
+            <div className="products-grid">
+              {products.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </div>
