@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { BookingProvider } from './context/BookingContext';
 import { ShopProvider } from './context/ShopContext';
 import { AuthProvider } from './context/AuthContext';
@@ -30,17 +30,19 @@ import NotFound from './pages/NotFound';
 import CookieBanner from './components/CookieBanner';
 import ScrollToTop from './components/ScrollToTop';
 
-function App() {
+function AppInner() {
+  const { pathname } = useLocation();
+  const isAdmin = pathname.startsWith('/admin');
+
   return (
-    <Router>
-      <AuthProvider>
-        <NewsProvider>
-          <ShopProvider>
-            <BookingProvider>
-              <ScrollToTop />
-              <div className="app-layout">
-                <Navbar />
-                <main>
+    <AuthProvider>
+      <NewsProvider>
+        <ShopProvider>
+          <BookingProvider>
+            <ScrollToTop />
+            <div className="app-layout">
+              {!isAdmin && <Navbar />}
+              <main>
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
@@ -75,16 +77,23 @@ function App() {
                     {/* 404 */}
                     <Route path="*" element={<NotFound />} />
                   </Routes>
-                </main>
-                <Footer />
-              </div>
-              <BookingModal />
-              <CartDrawer />
-              <CookieBanner />
-            </BookingProvider>
-          </ShopProvider>
-        </NewsProvider>
-      </AuthProvider>
+              </main>
+              {!isAdmin && <Footer />}
+            </div>
+            {!isAdmin && <BookingModal />}
+            {!isAdmin && <CartDrawer />}
+            {!isAdmin && <CookieBanner />}
+          </BookingProvider>
+        </ShopProvider>
+      </NewsProvider>
+    </AuthProvider>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppInner />
     </Router>
   );
 }

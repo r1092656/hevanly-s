@@ -1,12 +1,12 @@
 .admin-layout {
   min-height: 100vh;
-  padding-top: 180px;
+  padding-top: 80px;
   background-color: var(--color-bg);
 }
 
 .admin-nav {
   position: fixed;
-  top: 80px; /* Below the main navbar */
+  top: 0;
   left: 0;
   width: 100%;
   background: var(--color-surface);

@@ -15,7 +15,7 @@ const AdminAddProduct = () => {
 
   const [formData, setFormData] = useState({
     name: '',
-    category: 'Huidverzorging',
+    category: '',
     description: '',
     price: '',
     stock: '',
@@ -112,18 +112,15 @@ const AdminAddProduct = () => {
               <div className="grid grid-2">
                 <div className="input-group">
                   <label htmlFor="category">Categorie</label>
-                  <select 
-                    id="category" 
+                  <input
+                    type="text"
+                    id="category"
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
+                    placeholder="bijv. Huidverzorging, Haarverzorging..."
                     className="input-field"
-                  >
-                    <option value="Huidverzorging">Huidverzorging</option>
-                    <option value="Lichaamsverzorging">Lichaamsverzorging</option>
-                    <option value="Accessoires">Accessoires</option>
-                    <option value="Diensten">Diensten</option>
-                  </select>
+                  />
                 </div>
                 <div className="input-group">
                   <label htmlFor="price">Prijs (€)</label>

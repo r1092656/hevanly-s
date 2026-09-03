@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNews } from '../context/NewsContext';
-import { Send, Image as ImageIcon, Check, AlertCircle, Trash2 } from 'lucide-react';
+import { Send, Check, AlertCircle, Trash2 } from 'lucide-react';
 import AdminLayout from '../components/AdminLayout';
 import './AdminNews.css';
 
@@ -24,14 +24,14 @@ const AdminNews = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleImageSimulate = () => {
-    if (!formData.image) {
-      const randomId = Math.floor(Math.random() * 800) + 200;
-      setFormData(prev => ({ 
-        ...prev, 
-        image: `https://images.unsplash.com/photo-${randomId}?auto=format&fit=crop&q=80&w=1200` 
-      }));
-    }
+  const handleImageFile = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      setFormData(prev => ({ ...prev, image: ev.target.result }));
+    };
+    reader.readAsDataURL(file);
   };
 
   const handleSubmit = (e) => {
@@ -52,6 +52,8 @@ const AdminNews = () => {
       // Reset form instead of navigating away immediately
       setTimeout(() => {
         setFormData({ image: '', description: '', category: 'Update' });
+        const fileInput = document.getElementById('image');
+        if (fileInput) fileInput.value = '';
         setSendSuccess(false);
       }, 2000);
     }, 1200);
@@ -91,27 +93,15 @@ const AdminNews = () => {
             </div>
 
             <div className="input-group">
-              <label htmlFor="image">Afbeelding URL</label>
-              <div className="input-with-button">
-                <input 
-                  type="text" 
-                  id="image" 
-                  name="image"
-                  value={formData.image}
-                  onChange={handleChange}
-                  placeholder="https://images.unsplash.com/..."
-                  className="input-field"
-                />
-                <button 
-                  type="button" 
-                  onClick={handleImageSimulate}
-                  className="btn btn-outline flex items-center gap-2"
-                  style={{whiteSpace: 'nowrap'}}
-                >
-                  <ImageIcon size={18} />
-                  Simuleer upload
-                </button>
-              </div>
+              <label htmlFor="image">Afbeelding</label>
+              <input
+                type="file"
+                id="image"
+                accept="image/*"
+                onChange={handleImageFile}
+                className="input-field"
+                style={{ padding: '0.5rem' }}
+              />
             </div>
 
             {formData.image && (
