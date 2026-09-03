@@ -10,11 +10,21 @@ export const AuthProvider = ({ children }) => {
     return localStorage.getItem('isAdmin') === 'true';
   });
 
-  const login = (password) => {
-    if (password === import.meta.env.VITE_ADMIN_PASSWORD) {
-      setIsAdmin(true);
-      localStorage.setItem('isAdmin', 'true');
-      return true;
+  const login = async (password) => {
+    try {
+      const res = await fetch('/api/admin-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        setIsAdmin(true);
+        localStorage.setItem('isAdmin', 'true');
+        return true;
+      }
+    } catch (err) {
+      console.error('Login error:', err);
     }
     return false;
   };

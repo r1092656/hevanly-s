@@ -13,9 +13,10 @@ const AdminLogin = () => {
 
   const from = location.state?.from?.pathname || '/admin';
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (login(password)) {
+    const ok = await login(password);
+    if (ok) {
       navigate(from, { replace: true });
     } else {
       setError('Onjuist wachtwoord. Probeer het opnieuw.');
