@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head><meta charset="UTF-8"><style>
+  body { font-family: Georgia, serif; background: #f5f0eb; margin: 0; padding: 0; }
+  .wrap { max-width: 560px; margin: 30px auto; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .header { background: #6c5b7a; padding: 36px 40px; text-align: center; }
+  .header h1 { color: #fff; margin: 0; font-size: 1.5rem; letter-spacing: 1px; }
+  .header p { color: rgba(255,255,255,0.75); margin: 8px 0 0; font-size: 0.9rem; }
+  .body { padding: 36px 40px; }
+  .greeting { font-size: 1rem; color: #1a1a1a; margin-bottom: 24px; line-height: 1.6; }
+  .card { background: #f5f0eb; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+  .card h3 { margin: 0 0 14px; color: #6c5b7a; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+  .row { display: flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid rgba(0,0,0,0.06); font-size: 0.92rem; }
+  .row:last-child { border-bottom: none; }
+  .label { color: #999; }
+  .value { color: #1a1a1a; font-weight: 600; }
+  .price-card { background: #6c5b7a; border-radius: 12px; padding: 20px 24px; margin-bottom: 20px; }
+  .price-card h3 { margin: 0 0 14px; color: rgba(255,255,255,0.7); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+  .price-card .row { border-bottom-color: rgba(255,255,255,0.15); }
+  .price-card .label { color: rgba(255,255,255,0.7); }
+  .price-card .value { color: #fff; }
+  .note { font-size: 0.85rem; color: #999; line-height: 1.6; margin-bottom: 8px; }
+  .footer { background: #f5f0eb; padding: 20px 40px; text-align: center; font-size: 0.8rem; color: #aaa; line-height: 1.8; }
+  .footer a { color: #6c5b7a; text-decoration: none; }
+</style></head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1>Hevanly's Beautybar</h1>
+    <p>Afspraak bevestigd ✓</p>
+  </div>
+  <div class="body">
+    <p class="greeting">Beste {{customer_name}},<br><br>
+    Uw afspraak bij Hevanly's Beautybar is goed ontvangen. Hieronder vindt u alle details.</p>
+    <div class="card">
+      <h3>Afspraakdetails</h3>
+      <div class="row"><span class="label">Behandeling</span><span class="value">{{service_name}}</span></div>
+      <div class="row"><span class="label">Datum</span><span class="value">{{booking_date}}</span></div>
+      <div class="row"><span class="label">Tijdstip</span><span class="value">{{booking_time}}</span></div>
+      <div class="row"><span class="label">Adres</span><span class="value">Graatakker 118 Bus B, 2300 Turnhout</span></div>
+    </div>
+    <div class="card">
+      <h3>Klantgegevens</h3>
+      <div class="row"><span class="label">Naam</span><span class="value">{{customer_name}}</span></div>
+      <div class="row"><span class="label">E-mail</span><span class="value">{{customer_email}}</span></div>
+      <div class="row"><span class="label">Telefoon</span><span class="value">{{customer_phone}}</span></div>
+    </div>
+    <div class="price-card">
+      <h3>Betaling</h3>
+      <div class="row"><span class="label">Voorschot betaald</span><span class="value">{{deposit_amount}}</span></div>
+      <div class="row"><span class="label">Restbedrag in salon</span><span class="value">{{balance_amount}}</span></div>
+      <div class="row"><span class="label">Voorschot voldaan</span><span class="value">{{deposit_paid}}</span></div>
+    </div>
+    <p class="note">De aanbetaling is niet terugbetaalbaar bij annulering of no-show. Wenst u uw afspraak te verplaatsen? Neem dan contact op via hevanlysbeautybar2@outlook.be of +32 465 17 27 90.</p>
+    <div style="text-align:center; margin: 20px 0 8px;">
+      <a href="{{google_calendar_url}}" style="display:inline-block; background:#6c5b7a; color:#fff; padding:12px 28px; border-radius:30px; text-decoration:none; font-size:0.9rem; font-family:Georgia,serif;">
+        ➕ Voeg toe aan Google Calendar
+      </a>
+    </div>
+  </div>
+  <div class="footer">
+    <p><strong>Hevanly's Beautybar</strong></p>
+    <p>Graatakker 118 Bus B, 2300 Turnhout</p>
+    <p>+32 465 17 27 90 · <a href="mailto:hevanlysbeautybar2@outlook.be">hevanlysbeautybar2@outlook.be</a></p>
+    <p><a href="https://www.instagram.com/Hevanlysbeautybar">Instagram</a></p>
+  </div>
+</div>
+</body>
+</html>
