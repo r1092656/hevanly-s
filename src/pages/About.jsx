@@ -53,7 +53,7 @@ const About = () => {
             <div className="value-card">
               <div className="value-icon"><Heart size={32} /></div>
               <h3>Premium Producten</h3>
-              <p>Wij gebruiken alleen de fijnste, dierproefvrije en huidvriendelijke producten voor onze behandelingen.</p>
+              <p>Wij werken uitsluitend met professionele salonproducten van hoge kwaliteit, speciaal geselecteerd voor de beste resultaten bij elke behandeling.</p>
             </div>
             <div className="value-card">
               <div className="value-icon"><Clock size={32} /></div>

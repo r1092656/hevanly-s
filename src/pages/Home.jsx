@@ -39,7 +39,7 @@ const Home = () => {
           <div className="intro-grid">
             <div className="intro-text">
               <h2>Welkom bij Hevanly's Beautybar</h2>
-              <p>Gelegen in het hart van Turnhout bieden wij een exclusieve selectie hoogwaardige schoonheidsbehandelingen aan. Het is onze passie om je er buitengewoon uit te laten zien en voelen.</p>
+              <p>Gelegen in het hart van Turnhout bieden wij een exclusieve selectie hoogwaardige beauty behandelingen aan. Het is onze passie om je er buitengewoon uit te laten zien en voelen.</p>
               <Link to="/about" className="link-arrow">Lees ons verhaal &rarr;</Link>
             </div>
             <div className="intro-stats">
