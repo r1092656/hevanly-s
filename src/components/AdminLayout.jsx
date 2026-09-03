@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { LayoutDashboard, ShoppingBag, Newspaper, LogOut, ChevronLeft } from 'lucide-react';
+import { LayoutDashboard, ShoppingBag, Newspaper, LogOut, ChevronLeft, Home } from 'lucide-react';
 import './AdminLayout.css';
 
 const AdminLayout = ({ children, title, backTo }) => {
@@ -41,10 +41,16 @@ const AdminLayout = ({ children, title, backTo }) => {
             </NavLink>
           </nav>
 
-          <button onClick={handleLogout} className="admin-logout-btn" title="Uitloggen">
-            <LogOut size={20} />
-            <span className="desktop-only text-sm">Uitloggen</span>
-          </button>
+          <div className="admin-nav-actions">
+            <Link to="/" className="admin-site-btn" title="Terug naar website">
+              <Home size={18} />
+              <span className="desktop-only text-sm">Website</span>
+            </Link>
+            <button onClick={handleLogout} className="admin-logout-btn" title="Uitloggen">
+              <LogOut size={20} />
+              <span className="desktop-only text-sm">Uitloggen</span>
+            </button>
+          </div>
         </div>
       </header>
       

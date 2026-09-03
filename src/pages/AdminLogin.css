@@ -4,7 +4,21 @@
   align-items: center;
   justify-content: center;
   background-color: var(--color-bg);
-  padding-top: 80px;
+  padding-top: 0;
+}
+
+.back-to-site-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.back-to-site-btn:hover {
+  color: var(--color-accent);
 }
 
 .login-card {

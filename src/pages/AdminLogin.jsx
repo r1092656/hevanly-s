@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Lock } from 'lucide-react';
+import { Lock, ArrowLeft } from 'lucide-react';
 import './AdminLogin.css';
 
 const AdminLogin = () => {
@@ -59,6 +59,11 @@ const AdminLogin = () => {
               Toegang tot beheerderspaneel
             </button>
           </form>
+
+          <Link to="/" className="back-to-site-btn">
+            <ArrowLeft size={16} />
+            Terug naar website
+          </Link>
         </div>
       </div>
     </div>
