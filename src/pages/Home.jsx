@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Sparkles } from 'lucide-react';
 import { useBooking } from '../context/BookingContext';
 import NewsSection from '../components/NewsSection';
 import './Home.css';
@@ -45,7 +44,7 @@ const Home = () => {
             </div>
             <div className="intro-stats">
               <div className="stat-card">
-                <h3>10+</h3>
+                <h3>7+</h3>
                 <p>Jaar ervaring</p>
               </div>
               <div className="stat-card">
@@ -100,25 +99,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="section testimonials">
-        <div className="container">
-          <div className="testimonials-header">
-             <Sparkles className="icon-accent" size={32} />
-             <h2>Cliënt Ervaringen</h2>
-          </div>
-          <div className="testimonials-grid">
-            <div className="testimonial-card">
-               <p className="testimonial-text">"Absoluut de beste schoonheidssalon in Turnhout. De ambiance is geweldig en ik vertrek altijd als een nieuw mens."</p>
-               <h5>- Sophie V.</h5>
-            </div>
-            <div className="testimonial-card">
-               <p className="testimonial-text">"Professioneel, schoon en luxueus. Hun oog voor detail bij mijn nagels was ongeëvenaard."</p>
-               <h5>- Emma D.</h5>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Bottom CTA */}
       <section className="section cta-section">
