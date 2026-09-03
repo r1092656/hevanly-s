@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Contact.css';
-import { MapPin, Phone, Mail } from 'lucide-react';
+import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react';
 import { SALON_INFO, OPENING_HOURS } from '../config/salonConfig';
 
 const Contact = () => {
@@ -115,6 +115,17 @@ const Contact = () => {
                     <div>
                       <strong>E-mail</strong>
                       <p><a href={`mailto:${SALON_INFO.email}`} style={{color:'inherit'}}>{SALON_INFO.email}</a></p>
+                    </div>
+                  </li>
+                  <li>
+                    <MessageCircle className="info-icon" />
+                    <div>
+                      <strong>WhatsApp</strong>
+                      <p>
+                        <a href="https://wa.me/32465172790" target="_blank" rel="noopener noreferrer" style={{color:'inherit'}}>
+                          +32 465 17 27 90
+                        </a>
+                      </p>
                     </div>
                   </li>
                 </ul>
