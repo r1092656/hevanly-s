@@ -341,12 +341,12 @@ const BookingModal = () => {
                     <span>{fmtPrice(depositInfo.deposit)}</span>
                   </div>
                   <div className="breakdown-row pending">
-                    <span>Restant (Betalen bij afspraak)</span>
+                    <span>Restant (Cash te betalen in salon)</span>
                     <span>{fmtPrice(depositInfo.balance)}</span>
                   </div>
                 </div>
                 <div className="deposit-info-message">
-                  <p>Aanbetaling van <strong>{fmtPrice(depositInfo.deposit)}</strong> vereist. Restant wordt in salon betaald.</p>
+                  <p>Aanbetaling van <strong>{fmtPrice(depositInfo.deposit)}</strong> vereist. Het restbedrag wordt <strong>cash</strong> betaald in de salon.</p>
                 </div>
               </div>
               <div className="step-actions split">

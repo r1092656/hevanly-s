@@ -21,7 +21,7 @@ const buildGoogleCalendarUrl = (data) => {
     action:   'TEMPLATE',
     text:     `${data.service.name} – Hevanly's Beautybar`,
     dates:    `${start}/${end}`,
-    details:  `Aanbetaling: €${data.depositAmount.toFixed(2)} betaald. Restbedrag te betalen in salon. Contact: +32 465 17 27 90`,
+    details:  `Aanbetaling: €${data.depositAmount.toFixed(2)} betaald. Restbedrag cash te betalen in salon. Contact: +32 465 17 27 90`,
     location: "Graatakker 118 Bus B, 2300 Turnhout, België",
   });
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
