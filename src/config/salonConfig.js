@@ -16,12 +16,12 @@ export const SALON_INFO = {
 // open/close: "HH:MM" formaat (24u) — alleen nodig bij status 'open' of 'op-afspraak'
 export const OPENING_HOURS = [
   { day: 'Maandag',   jsDay: 1, status: 'gesloten',    label: 'Gesloten',      open: null,    close: null  },
-  { day: 'Dinsdag',   jsDay: 2, status: 'open',        label: '12:00 - 19:00', open: '12:00', close: '19:00' },
-  { day: 'Woensdag',  jsDay: 3, status: 'op-afspraak', label: 'Op afspraak',   open: '12:00', close: '19:00' },
-  { day: 'Donderdag', jsDay: 4, status: 'open',        label: '12:00 - 19:00', open: '12:00', close: '19:00' },
-  { day: 'Vrijdag',   jsDay: 5, status: 'open',        label: '12:00 - 21:00', open: '12:00', close: '21:00' },
-  { day: 'Zaterdag',  jsDay: 6, status: 'open',        label: '9:00 - 18:00',  open: '09:00', close: '18:00' },
-  { day: 'Zondag',    jsDay: 0, status: 'op-afspraak', label: 'Op afspraak',   open: '12:00', close: '18:00' },
+  { day: 'Dinsdag',   jsDay: 2, status: 'open', label: '9:00 - 18:00', open: '09:00', close: '18:00' },
+  { day: 'Woensdag',  jsDay: 3, status: 'open', label: '9:00 - 18:00', open: '09:00', close: '18:00' },
+  { day: 'Donderdag', jsDay: 4, status: 'open', label: '9:00 - 18:00', open: '09:00', close: '18:00' },
+  { day: 'Vrijdag',   jsDay: 5, status: 'open', label: '9:00 - 18:00', open: '09:00', close: '18:00' },
+  { day: 'Zaterdag',  jsDay: 6, status: 'open', label: '9:00 - 18:00', open: '09:00', close: '18:00' },
+  { day: 'Zondag',    jsDay: 0, status: 'gesloten',    label: 'Gesloten',      open: null,    close: null   },
 ];
 
 // Duur van een afspraak in minuten (blokkeert deze tijd na elk geboekt slot)

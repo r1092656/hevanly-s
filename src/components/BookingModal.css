@@ -582,4 +582,45 @@
   .time-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .modal-overlay {
+    padding: 0.5rem;
+    align-items: flex-end;
+  }
+
+  .modal-content {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    max-height: 92vh;
+  }
+
+  .modal-header {
+    padding: 1.25rem 1.25rem 1rem;
+  }
+
+  .modal-header h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .modal-body {
+    padding: 1.25rem;
+  }
+
+  .step-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .step-actions.split {
+    flex-direction: row;
+  }
+
+  .step-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .step-actions.split button {
+    width: auto;
+  }
 }

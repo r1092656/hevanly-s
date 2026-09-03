@@ -136,5 +136,16 @@
 @media (max-width: 900px) {
   .contact-layout {
     grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-form-container {
+    padding: 1.5rem;
+  }
+
+  .info-block {
+    padding: 1.25rem;
   }
 }

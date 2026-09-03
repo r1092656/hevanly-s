@@ -263,4 +263,29 @@
   .services-diana-teaser {
     flex-wrap: wrap;
   }
+
+  .category-tabs {
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .tab-btn {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .service-top h3 {
+    font-size: 1.1rem;
+  }
+
+  .service-price {
+    font-size: 1.1rem;
+  }
+
+  .whatsapp-cta {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.75rem;
+  }
 }

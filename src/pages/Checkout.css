@@ -249,4 +249,26 @@
   .grid-2 {
     grid-template-columns: 1fr;
   }
+
+  .checkout-page {
+    padding-top: 100px;
+    padding-bottom: 3rem;
+  }
+
+  .checkout-section {
+    padding: 1.25rem;
+  }
+
+  .order-summary {
+    position: static;
+    padding: 1.25rem;
+  }
+
+  .checkout-page.success {
+    padding-top: 10rem;
+  }
+
+  .success-card {
+    padding: 2rem 1.25rem;
+  }
 }
