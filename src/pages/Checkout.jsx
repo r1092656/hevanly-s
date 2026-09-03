@@ -192,6 +192,9 @@ const Checkout = () => {
               </label>
             </div>
 
+            <div className="redirect-warning">
+              ⚠️ Na het betalen wordt u automatisch teruggestuurd naar de website. Sluit dit venster <strong>niet</strong> en klik <strong>niet</strong> weg — anders ontvangt u geen bevestigingsmail.
+            </div>
             <button
               type="submit"
               className={`btn btn-primary pay-btn ${isProcessing ? 'loading' : ''}`}

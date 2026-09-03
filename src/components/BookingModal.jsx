@@ -360,6 +360,9 @@ const BookingModal = () => {
                     <p>Totaal nu te betalen:</p>
                     <div className="payment-amount">{fmtPrice(depositInfo.deposit)}</div>
                     <p className="payment-hint">Klik op de knop om de aanbetaling te bevestigen.</p>
+                    <div className="redirect-warning">
+                      ⚠️ Na het betalen wordt u automatisch teruggestuurd naar de website. Sluit dit venster <strong>niet</strong> en klik <strong>niet</strong> weg — anders ontvangt u geen bevestigingsmail.
+                    </div>
                     <button className="btn btn-primary pay-btn" onClick={handlePayment}>
                       Nu {fmtPrice(depositInfo.deposit)} betalen
                     </button>
