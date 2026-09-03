@@ -6,11 +6,7 @@ import './Reviews.css';
 // Basic vulgarity filter mapping
 const BLOCKED_WORDS = ['haat', 'lelijk', 'verschrikkelijk', 'vies', 'shit', 'kut', 'hoer'];
 
-const INITIAL_REVIEWS = [
-  { id: 1, author: 'Sarah M.', date: 'april 2026', stars: 5, content: 'Absoluut genoten van mijn ervaring! Het team is zo professioneel en mijn haar heeft er nog nooit beter uitgezien. De salon heeft een heerlijke ontspannende sfeer.' },
-  { id: 2, author: 'Anoniem', date: 'maart 2026', stars: 4, content: 'Geweldige service en prachtig resultaat. De enige reden voor 4 sterren is dat ik 15 minuten moest wachten na mijn afspraaktijd, maar het resultaat was het waard!' },
-  { id: 3, author: 'Jessica T.', date: 'februari 2026', stars: 5, content: 'De beste nagelstyliste van de stad. Eerlijk gezegd ben ik nog nooit zo blij geweest met mijn gel-extensions. Ik raad deze plek ten zeerste aan voor iedereen die op zoek is naar premium beautybehandelingen.' }
-];
+const INITIAL_REVIEWS = [];
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -24,14 +20,16 @@ const Reviews = () => {
   const [gdprChecked, setGdprChecked] = useState(false);
   const [error, setError] = useState('');
 
-  // Load reviews on mount
+  // Load reviews on mount — v2 clears old placeholder data
   useEffect(() => {
-    const savedReviews = localStorage.getItem('hevanlys_reviews');
-    if (savedReviews) {
-      setReviews(JSON.parse(savedReviews));
+    const version = localStorage.getItem('reviews_version');
+    if (version !== 'v2') {
+      localStorage.setItem('reviews_version', 'v2');
+      localStorage.removeItem('hevanlys_reviews');
+      setReviews([]);
     } else {
-      setReviews(INITIAL_REVIEWS);
-      localStorage.setItem('hevanlys_reviews', JSON.stringify(INITIAL_REVIEWS));
+      const savedReviews = localStorage.getItem('hevanlys_reviews');
+      setReviews(savedReviews ? JSON.parse(savedReviews) : []);
     }
   }, []);
 
@@ -175,27 +173,33 @@ const Reviews = () => {
             </form>
           </div>
 
-          <div className="reviews-grid">
-            {reviews.map(review => (
-              <div key={review.id} className="review-card">
-                <div className="review-header">
-                  <span className="review-author">{review.author}</span>
-                  <span className="review-date">{review.date}</span>
+          {reviews.length === 0 ? (
+            <div className="reviews-empty">
+              <p>Nog geen recensies. Wees de eerste om een beoordeling achter te laten!</p>
+            </div>
+          ) : (
+            <div className="reviews-grid">
+              {reviews.map(review => (
+                <div key={review.id} className="review-card">
+                  <div className="review-header">
+                    <span className="review-author">{review.author}</span>
+                    <span className="review-date">{review.date}</span>
+                  </div>
+                  <div className="review-stars">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        size={16}
+                        fill={i < review.stars ? 'currentColor' : 'none'}
+                        color={i < review.stars ? 'var(--color-accent)' : 'var(--color-border)'}
+                      />
+                    ))}
+                  </div>
+                  <p className="review-content">{review.content}</p>
                 </div>
-                <div className="review-stars">
-                  {[...Array(5)].map((_, i) => (
-                    <Star 
-                      key={i} 
-                      size={16} 
-                      fill={i < review.stars ? 'currentColor' : 'none'} 
-                      color={i < review.stars ? 'var(--color-accent)' : 'var(--color-border)'} 
-                    />
-                  ))}
-                </div>
-                <p className="review-content">{review.content}</p>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
 
         </div>
       </section>
