@@ -85,6 +85,24 @@ const BookingSuccess = () => {
           status:        'PAID',
         });
         const googleUrl = buildGoogleCalendarUrl(data);
+
+        // Sla boeking op in Redis (centrale database)
+        fetch('/api/bookings/add', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: `booking_${Date.now()}`,
+            date: data.date,
+            time: data.time,
+            serviceName: data.service.name,
+            customerName: data.customer.name,
+            customerEmail: data.customer.email,
+            customerPhone: data.customer.phone,
+            depositAmount: data.depositAmount,
+            createdAt: Date.now(),
+          }),
+        }).catch(err => console.error('Redis booking save error:', err));
+
         sendBookingEmail({
           service:              data.service.name,
           date:                 data.date,

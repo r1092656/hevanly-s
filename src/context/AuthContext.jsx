@@ -21,6 +21,7 @@ export const AuthProvider = ({ children }) => {
       if (data.ok) {
         setIsAdmin(true);
         localStorage.setItem('isAdmin', 'true');
+        sessionStorage.setItem('admin_pw', password);
         return true;
       }
     } catch (err) {
@@ -32,10 +33,16 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setIsAdmin(false);
     localStorage.removeItem('isAdmin');
+    sessionStorage.removeItem('admin_pw');
   };
 
+  const getAdminHeaders = () => ({
+    'Content-Type': 'application/json',
+    'x-admin-password': sessionStorage.getItem('admin_pw') || '',
+  });
+
   return (
-    <AuthContext.Provider value={{ isAdmin, login, logout }}>
+    <AuthContext.Provider value={{ isAdmin, login, logout, getAdminHeaders }}>
       {children}
     </AuthContext.Provider>
   );

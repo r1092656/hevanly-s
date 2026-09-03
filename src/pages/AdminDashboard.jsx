@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Newspaper, ArrowRight } from 'lucide-react';
+import { ShoppingBag, Newspaper, ArrowRight, CalendarDays } from 'lucide-react';
 import AdminLayout from '../components/AdminLayout';
 import './AdminDashboard.css';
 
@@ -23,6 +23,20 @@ const AdminDashboard = () => {
               <p>Beheer prijzen, voorraad en voeg nieuwe producten toe aan de winkel.</p>
               <div className="card-footer">
                 <span>Open beheer</span>
+                <ArrowRight size={18} />
+              </div>
+            </div>
+          </Link>
+
+          <Link to="/admin/bookings" className="dashboard-card group alternate">
+            <div className="card-icon">
+              <CalendarDays size={40} />
+            </div>
+            <div className="card-content">
+              <h3>Boekingen</h3>
+              <p>Bekijk alle afspraken en annuleer boekingen zodat tijdsloten vrijkomen.</p>
+              <div className="card-footer">
+                <span>Boekingen beheren</span>
                 <ArrowRight size={18} />
               </div>
             </div>

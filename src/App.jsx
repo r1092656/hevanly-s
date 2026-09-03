@@ -24,6 +24,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminProducts from './pages/AdminProducts';
 import AdminAddProduct from './pages/AdminAddProduct';
 import AdminNews from './pages/AdminNews';
+import AdminBookings from './pages/AdminBookings';
 import Privacy from './pages/Privacy';
 import AlgemeneVoorwaarden from './pages/AlgemeneVoorwaarden';
 import NotFound from './pages/NotFound';
@@ -72,6 +73,9 @@ function AppInner() {
                     } />
                     <Route path="/admin/news" element={
                       <AdminRoute><AdminNews /></AdminRoute>
+                    } />
+                    <Route path="/admin/bookings" element={
+                      <AdminRoute><AdminBookings /></AdminRoute>
                     } />
 
                     {/* 404 */}

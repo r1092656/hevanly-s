@@ -1,23 +1,17 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useNews } from '../context/NewsContext';
+import { useAuth } from '../context/AuthContext';
 import { Send, Check, AlertCircle, Trash2 } from 'lucide-react';
 import AdminLayout from '../components/AdminLayout';
 import './AdminNews.css';
 
 const AdminNews = () => {
-  const navigate = useNavigate();
-  const { addNewsItem, newsItems, deleteNewsItem } = useNews();
+  const { newsItems, fetchNews } = useNews();
+  const { getAdminHeaders } = useAuth();
 
-  const [formData, setFormData] = useState({
-    image: '',
-    description: '',
-    category: 'Update'
-  });
-
+  const [formData, setFormData] = useState({ image: '', description: '', category: 'Update' });
   const [isSending, setIsSending] = useState(false);
   const [sendSuccess, setSendSuccess] = useState(false);
-  const [deletingId, setDeletingId] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,40 +22,50 @@ const AdminNews = () => {
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = (ev) => {
-      setFormData(prev => ({ ...prev, image: ev.target.result }));
-    };
+    reader.onload = (ev) => setFormData(prev => ({ ...prev, image: ev.target.result }));
     reader.readAsDataURL(file);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSending(true);
-
-    // Simulate network delay
-    setTimeout(() => {
-      addNewsItem({
-        image: formData.image || 'https://via.placeholder.com/1200x800?text=News+Update',
-        description: formData.description,
-        category: formData.category
+    try {
+      const res = await fetch('/api/news/add', {
+        method: 'POST',
+        headers: getAdminHeaders(),
+        body: JSON.stringify({
+          description: formData.description,
+          category: formData.category,
+          image: formData.image,
+        }),
       });
-      
-      setIsSending(false);
-      setSendSuccess(true);
-      
-      // Reset form instead of navigating away immediately
-      setTimeout(() => {
+      const data = await res.json();
+      if (data.ok) {
+        setSendSuccess(true);
         setFormData({ image: '', description: '', category: 'Update' });
         const fileInput = document.getElementById('image');
         if (fileInput) fileInput.value = '';
-        setSendSuccess(false);
-      }, 2000);
-    }, 1200);
+        await fetchNews();
+        setTimeout(() => setSendSuccess(false), 2000);
+      }
+    } catch (err) {
+      console.error('Add news error:', err);
+    } finally {
+      setIsSending(false);
+    }
   };
 
-  const handleConfirmDelete = (id) => {
-    if (window.confirm('Weet je zeker dat je dit nieuwsbericht wilt verwijderen?')) {
-      deleteNewsItem(id);
+  const handleDelete = async (id) => {
+    if (!window.confirm('Weet je zeker dat je dit bericht wilt verwijderen?')) return;
+    try {
+      await fetch('/api/news/delete', {
+        method: 'POST',
+        headers: getAdminHeaders(),
+        body: JSON.stringify({ id }),
+      });
+      await fetchNews();
+    } catch (err) {
+      console.error('Delete news error:', err);
     }
   };
 
@@ -78,13 +82,7 @@ const AdminNews = () => {
             <h3 className="section-title">Voeg nieuw bericht toe</h3>
             <div className="input-group">
               <label htmlFor="category">Categorie</label>
-              <select 
-                id="category" 
-                name="category"
-                value={formData.category}
-                onChange={handleChange}
-                className="input-field"
-              >
+              <select id="category" name="category" value={formData.category} onChange={handleChange} className="input-field">
                 <option value="Update">Update</option>
                 <option value="Behandeling">Nieuwe behandeling</option>
                 <option value="Product">Nieuw product</option>
@@ -94,61 +92,32 @@ const AdminNews = () => {
 
             <div className="input-group">
               <label htmlFor="image">Afbeelding</label>
-              <input
-                type="file"
-                id="image"
-                accept="image/*"
-                onChange={handleImageFile}
-                className="input-field"
-                style={{ padding: '0.5rem' }}
-              />
+              <input type="file" id="image" accept="image/*" onChange={handleImageFile}
+                className="input-field" style={{ padding: '0.5rem' }} />
             </div>
 
             {formData.image && (
               <div className="news-image-preview">
                 <img src={formData.image} alt="Preview" />
-                <button 
-                  type="button" 
-                  className="remove-preview" 
-                  onClick={() => setFormData(prev => ({...prev, image: ''}))}
-                >
-                  &times;
-                </button>
+                <button type="button" className="remove-preview"
+                  onClick={() => setFormData(prev => ({ ...prev, image: '' }))}>&times;</button>
               </div>
             )}
 
             <div className="input-group">
               <label htmlFor="description">Bericht</label>
-              <textarea 
-                id="description" 
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                rows="6"
+              <textarea id="description" name="description" value={formData.description}
+                onChange={handleChange} rows="6"
                 placeholder="Wat is het laatste nieuws? Deel het met je klanten..."
-                required
-                className="input-field"
-              ></textarea>
+                required className="input-field"></textarea>
             </div>
 
-            <div className="form-actions" style={{marginTop: '1rem'}}>
-              <button 
-                type="submit" 
+            <div className="form-actions" style={{ marginTop: '1rem' }}>
+              <button type="submit"
                 className={`btn btn-primary flex items-center gap-2 ${isSending ? 'loading' : ''} ${sendSuccess ? 'success' : ''}`}
                 disabled={isSending || sendSuccess}
-                style={{width: '200px', justifyContent: 'center'}}
-              >
-                {sendSuccess ? (
-                  <>
-                    <Check size={20} />
-                    Gepubliceerd!
-                  </>
-                ) : (
-                  <>
-                    <Send size={20} />
-                    Publiceren
-                  </>
-                )}
+                style={{ width: '200px', justifyContent: 'center' }}>
+                {sendSuccess ? <><Check size={20} /> Gepubliceerd!</> : <><Send size={20} /> Publiceren</>}
               </button>
             </div>
           </form>
@@ -163,18 +132,16 @@ const AdminNews = () => {
               <div className="news-management-list">
                 {newsItems.map(item => (
                   <div key={item.id} className="news-management-item">
-                    <div className="news-item-thumb">
-                      <img src={item.image} alt="News Thumb" />
-                    </div>
+                    {item.image && (
+                      <div className="news-item-thumb">
+                        <img src={item.image} alt="News Thumb" />
+                      </div>
+                    )}
                     <div className="news-item-info">
                       <span className="news-tag">{item.category}</span>
                       <p className="news-snippet">{item.description}</p>
                     </div>
-                    <button 
-                      className="delete-btn" 
-                      onClick={() => handleConfirmDelete(item.id)}
-                      title="Verwijderen"
-                    >
+                    <button className="delete-btn" onClick={() => handleDelete(item.id)} title="Verwijderen">
                       <Trash2 size={18} />
                     </button>
                   </div>

@@ -60,6 +60,8 @@ const BookingModal = () => {
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [depositInfo, setDepositInfo] = useState({ total: 0, deposit: 0, balance: 0 });
   const [gdprChecked, setGdprChecked] = useState(false);
+  const [bookedTimes, setBookedTimes] = useState([]);
+  const [loadingSlots, setLoadingSlots] = useState(false);
 
   useEffect(() => {
     if (isBookingOpen) {
@@ -81,6 +83,16 @@ const BookingModal = () => {
       setDepositInfo({ total: price, deposit, balance: price - deposit });
     }
   }, [selectedService]);
+
+  useEffect(() => {
+    if (!selectedDate) { setBookedTimes([]); return; }
+    setLoadingSlots(true);
+    fetch(`/api/bookings/slots?date=${selectedDate}`)
+      .then(r => r.json())
+      .then(data => setBookedTimes(data.times || []))
+      .catch(() => setBookedTimes([]))
+      .finally(() => setLoadingSlots(false));
+  }, [selectedDate]);
 
   if (!isBookingOpen) return null;
 
@@ -220,12 +232,7 @@ const BookingModal = () => {
             const isOpAfspraak = dayConfig?.status === 'op-afspraak';
             const allSlots = generateSlots(dayConfig);
 
-            // Haal bestaande boekingen op voor deze datum
-            const existingBookings = JSON.parse(localStorage.getItem('hevanly_bookings') || '[]');
-            const bookedTimesForDay = existingBookings
-              .filter(b => b.date === selectedDate)
-              .map(b => b.time);
-            const blockedSlots = getBlockedSlots(bookedTimesForDay);
+            const blockedSlots = getBlockedSlots(bookedTimes);
 
             return (
               <div className="step-content">
@@ -249,7 +256,11 @@ const BookingModal = () => {
                   </div>
                 )}
 
-                {selectedDate && !isClosed && allSlots.length > 0 && (
+                {selectedDate && !isClosed && loadingSlots && (
+                  <p style={{ color: 'var(--color-text-light)', fontSize: '0.9rem' }}>Beschikbaarheid laden...</p>
+                )}
+
+                {selectedDate && !isClosed && !loadingSlots && allSlots.length > 0 && (
                   <div className="time-selection">
                     <label className="input-label">Beschikbare tijden</label>
                     <div className="time-grid">
