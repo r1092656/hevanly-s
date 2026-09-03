@@ -37,10 +37,10 @@ const AlgemeneVoorwaarden = () => {
           <div className="legal-block">
             <h2>3. Annulering & Wijziging</h2>
             <ul>
-              <li><strong>Annulering meer dan 48 uur van tevoren:</strong> de aanbetaling wordt volledig teruggestort.</li>
-              <li><strong>Annulering tussen 24 en 48 uur van tevoren:</strong> de aanbetaling wordt voor 50% teruggestort.</li>
-              <li><strong>Annulering minder dan 24 uur van tevoren of no-show:</strong> de aanbetaling vervalt en wordt niet teruggestort.</li>
-              <li>Wijzigingen van datum of tijd zijn mogelijk tot 48 uur voor de afspraak via e-mail of telefoon, zonder extra kosten.</li>
+              <li>Na betaling van de aanbetaling is uw afspraak definitief bevestigd.</li>
+              <li>Wenst u uw afspraak te verplaatsen? Neem dan tijdig contact op via telefoon, e-mail of WhatsApp. Bij een verplaatsing is geen nieuwe aanbetaling vereist.</li>
+              <li><strong>Annulering of no-show door de klant:</strong> de aanbetaling vervalt en wordt niet teruggestort, ongeacht het tijdstip van annulering.</li>
+              <li><strong>Annulering door de salon:</strong> indien de salon de afspraak zelf annuleert of niet kan nakomen, ontvangt de klant de volledige aanbetaling terug.</li>
             </ul>
           </div>
 
